@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias Digital - Tu Diario Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-slide-down {
+            animation: slideDown 0.6s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+
+        .font-headline {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .font-body {
+            font-family: 'Barlow', sans-serif;
+        }
+
+        .article-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .article-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .breaking-badge {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .category-tag:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .logo-circle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#1a1a1a',
+                            700: '#2a2a2a',
+                            600: '#3a3a3a',
+                        },
+                        accent: {
+                            red: '#dc2626',
+                            blue: '#1e40af',
+                            orange: '#ea580c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-white font-body antialiased">
+
+    <!-- Breaking News Bar -->
+    <div class="bg-accent-red text-white py-2 px-4 text-center text-sm font-semibold tracking-wide">
+        <span class="breaking-badge px-3 py-1 rounded-full text-xs mr-2">ÚLTIMA HORA</span>
+        Gobierno anuncia nuevas medidas económicas para el próximo trimestre
+    </div>
+
+    <!-- Header -->
+    <header class="bg-dark-800 border-b-4 border-accent-red sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <img src="ruta/a/tu/logo.png" alt="Logo" class="w-16 h-16 rounded-full animate-slide-down">
+                    <div>
+                        <h1 class="font-headline text-5xl md:text-6xl text-accent-red tracking-wider animate-slide-down">
+                            LA FUENTE ABIERTA<span class="text-white">24/7</span>
+                        </h1>
+                        <p class="text-gray-400 text-xs mt-1 font-light tracking-widest">TU DIARIO DIGITAL</p>
+                    </div>
+                </div>
+                <div class="text-right text-sm text-gray-400 animate-fade-in">
+                    <p class="font-semibold text-white">Domingo, 1 Febrero 2026</p>
+                    <p class="text-xs">Santiago, Chile 🌤️ 24°C</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-dark-700 border-b border-dark-600 sticky top-[88px] z-40 backdrop-blur-sm bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4">
+            <ul class="flex overflow-x-auto space-x-8 py-4 text-sm font-semibold tracking-wide">
+                <li><a href="#" class="text-white hover:text-accent-red transition-colors whitespace-nowrap border-b-2 border-accent-red pb-1">PORTADA</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">POLÍTICA</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">ECONOMÍA</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">DEPORTES</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">TECNOLOGÍA</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">CULTURA</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">INTERNACIONAL</a></li>
+                <li><a href="#" class="text-gray-300 hover:text-white transition-colors whitespace-nowrap">OPINIÓN</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Featured Story -->
+        <section class="mb-12 animate-fade-in stagger-1">
+            <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-red">
+                <div class="grid md:grid-cols-2 gap-0">
+                    <div class="overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=600&fit=crop" 
+                             alt="Noticia principal" 
+                             class="w-full h-full object-cover min-h-[300px]">
+                    </div>
+                    <div class="p-8 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="bg-accent-red text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded">Política</span>
+                            <span class="text-gray-500 text-sm">Hace 2 horas</span>
+                        </div>
+                        <h2 class="font-headline text-4xl md:text-5xl mb-4 leading-tight hover:text-accent-red transition-colors cursor-pointer">
+                            REFORMA CONSTITUCIONAL EN EL CONGRESO
+                        </h2>
+                        <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                            La comisión de Constitución.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-accent-red font-bold hover:underline group">
+                            Leer más 
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- News Grid -->
+        <section class="grid md:grid-cols-3 gap-6 mb-12">
+            
+            <!-- Article 1 -->
+            <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-red animate-fade-in stagger-2">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1560422877-5b6a8c40ed6c?w=600&h=400&fit=crop" 
+                         alt="Economía" 
+                         class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <span class="bg-accent-blue text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded inline-block mb-3">Economía</span>
+                    <h3 class="font-headline text-2xl mb-3 leading-tight hover:text-accent-red transition-colors cursor-pointer">
+                        DÓLAR CIERRA LA SEMANA CON LEVE ALZA
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        La moneda estadounidense terminó la jornada en $890, marcando un incremento del 0.8% respecto a la semana anterior.
+                    </p>
+                    <span class="text-gray-500 text-xs">Hace 3 horas</span>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-red animate-fade-in stagger-3">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&h=400&fit=crop" 
+                         alt="Deportes" 
+                         class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <span class="bg-green-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded inline-block mb-3">Deportes</span>
+                    <h3 class="font-headline text-2xl mb-3 leading-tight hover:text-accent-red transition-colors cursor-pointer">
+                        LA ROJA DEFINE AMISTOSOS DE MARZO
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        La selección chilena confirmó dos encuentros preparatorios antes de las eliminatorias. Ambos partidos se jugarán en Santiago.
+                    </p>
+                    <span class="text-gray-500 text-xs">Hace 5 horas</span>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-red animate-fade-in stagger-4">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" 
+                         alt="Tecnología" 
+                         class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6">
+                    <span class="bg-purple-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded inline-block mb-3">Tecnología</span>
+                    <h3 class="font-headline text-2xl mb-3 leading-tight hover:text-accent-red transition-colors cursor-pointer">
+                        NUEVA ACTUALIZACIÓN DE SEGURIDAD MÓVIL
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Expertos recomiendan instalar el último parche que corrige vulnerabilidades críticas en dispositivos Android e iOS.
+                    </p>
+                    <span class="text-gray-500 text-xs">Hace 6 horas</span>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Secondary News -->
+        <section class="grid md:grid-cols-2 gap-6 mb-12">
+            
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <h2 class="font-headline text-3xl border-l-4 border-accent-red pl-4 mb-6">MÁS NOTICIAS</h2>
+                
+                <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-red animate-fade-in stagger-5">
+                    <img src="https://images.unsplash.com/photo-1477281765962-ef34e8bb0967?w=200&h=150&fit=crop" 
+                         alt="Cultura" 
+                         class="w-32 h-24 object-cover rounded flex-shrink-0">
+                    <div>
+                        <span class="bg-accent-orange text-white px-2 py-1 text-xs font-bold uppercase rounded inline-block mb-2">Cultura</span>
+                        <h4 class="font-headline text-lg mb-2 hover:text-accent-red transition-colors cursor-pointer">
+                            FESTIVAL DE CINE ANUNCIA CARTELERA 2026
+                        </h4>
+                        <span class="text-gray-500 text-xs">Hace 8 horas</span>
+                    </div>
+                </article>
+
+                <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-red">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=200&h=150&fit=crop" 
+                         alt="Ciencia" 
+                         class="w-32 h-24 object-cover rounded flex-shrink-0">
+                    <div>
+                        <span class="bg-teal-600 text-white px-2 py-1 text-xs font-bold uppercase rounded inline-block mb-2">Ciencia</span>
+                        <h4 class="font-headline text-lg mb-2 hover:text-accent-red transition-colors cursor-pointer">
+                            DESCUBREN NUEVA ESPECIE MARINA EN CHILE
+                        </h4>
+                        <span class="text-gray-500 text-xs">Hace 10 horas</span>
+                    </div>
+                </article>
+
+                <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-red">
+                    <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=200&h=150&fit=crop" 
+                         alt="Tech" 
+                         class="w-32 h-24 object-cover rounded flex-shrink-0">
+                    <div>
+                        <span class="bg-purple-600 text-white px-2 py-1 text-xs font-bold uppercase rounded inline-block mb-2">Tech</span>
+                        <h4 class="font-headline text-lg mb-2 hover:text-accent-red transition-colors cursor-pointer">
+                            STARTUP CHILENA RECIBE INVERSIÓN MILLONARIA
+                        </h4>
+                        <span class="text-gray-500 text-xs">Hace 12 horas</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Right Column - Lo Más Leído -->
+            <div>
+                <h2 class="font-headline text-3xl border-l-4 border-accent-red pl-4 mb-6">LO MÁS LEÍDO</h2>
+                <div class="bg-dark-800 rounded-lg border border-dark-600 p-6">
+                    <ol class="space-y-5">
+                        <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors">
+                            <span class="font-headline text-4xl text-accent-red flex-shrink-0">1</span>
+                            <div>
+                                <h4 class="font-semibold mb-1 hover:text-accent-red transition-colors">
+                                    Crisis hídrica: Gobierno anuncia plan de emergencia
+                                </h4>
+                                <span class="text-gray-500 text-xs">154.2k lecturas</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors">
+                            <span class="font-headline text-4xl text-gray-600 flex-shrink-0">2</span>
+                            <div>
+                                <h4 class="font-semibold mb-1 hover:text-accent-red transition-colors">
+                                    Bolsa de Santiago registra mejor semana del año
+                                </h4>
+                                <span class="text-gray-500 text-xs">98.7k lecturas</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors">
+                            <span class="font-headline text-4xl text-gray-600 flex-shrink-0">3</span>
+                            <div>
+                                <h4 class="font-semibold mb-1 hover:text-accent-red transition-colors">
+                                    Nuevo récord de turismo en el país
+                                </h4>
+                                <span class="text-gray-500 text-xs">87.3k lecturas</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors">
+                            <span class="font-headline text-4xl text-gray-600 flex-shrink-0">4</span>
+                            <div>
+                                <h4 class="font-semibold mb-1 hover:text-accent-red transition-colors">
+                                    Artista nacional gana premio internacional
+                                </h4>
+                                <span class="text-gray-500 text-xs">76.1k lecturas</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors">
+                            <span class="font-headline text-4xl text-gray-600 flex-shrink-0">5</span>
+                            <div>
+                                <h4 class="font-semibold mb-1 hover:text-accent-red transition-colors">
+                                    Reforma educacional: los puntos clave
+                                </h4>
+                                <span class="text-gray-500 text-xs">65.8k lecturas</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-800 border-t-4 border-accent-red mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="logo-circle" style="width: 40px; height: 40px; font-size: 18px;">
+                            N24
+                        </div>
+                        <h3 class="font-headline text-2xl text-accent-red">NOTICIAS24/7</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">Tu fuente confiable de información al instante.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider">SECCIONES</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Política</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Economía</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Deportes</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cultura</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider">INFORMACIÓN</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Quiénes somos</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Publicidad</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-sm tracking-wider">SÍGUENOS</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="bg-dark-700 hover:bg-accent-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <span class="text-xl">𝕏</span>
+                        </a>
+                        <a href="#" class="bg-dark-700 hover:bg-accent-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <span class="text-xl">f</span>
+                        </a>
+                        <a href="#" class="bg-dark-700 hover:bg-accent-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <span class="text-xl">in</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-dark-600 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 Noticias24/7. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
