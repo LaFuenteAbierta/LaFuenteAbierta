@@ -1,0 +1,255 @@
+/* Animaciones */
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.animate-slide-down {
+    animation: slideDown 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Tipografías */
+.font-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+}
+
+.font-body {
+    font-family: 'Barlow', sans-serif;
+}
+
+/* Cards y efectos */
+.article-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.article-card:hover {
+    transform: translateY(-4px);
+}
+
+.breaking-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.category-tag {
+    transition: transform 0.2s ease;
+}
+
+.category-tag:hover {
+    transform: scale(1.05);
+}
+
+img {
+    transition: transform 0.5s ease;
+}
+
+.article-card:hover img {
+    transform: scale(1.08);
+}
+
+/* Logo */
+.logo-circle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Skeleton loader */
+.skeleton {
+    background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Badge "NUEVO" */
+.new-badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Navegación activa */
+.nav-link.active {
+    color: #10b981 !important;
+    border-bottom: 2px solid #10b981;
+}
+
+/* Tiempo de lectura */
+.read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Sticky header y nav */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+nav {
+    position: sticky;
+    z-index: 50;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #10b981;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #059669;
+}
+
+/* Category colors */
+.cat-tecnologia { background-color: #8b5cf6; }
+.cat-deportes { background-color: #10b981; }
+.cat-politica { background-color: #ef4444; }
+.cat-economia { background-color: #1e40af; }
+.cat-cultura { background-color: #ea580c; }
+.cat-ciencia { background-color: #14b8a6; }
+.cat-internacional { background-color: #ec4899; }
+.cat-opinion { background-color: #6366f1; }
+.cat-redes { background-color: #06b6d4; }
+.cat-programacion { background-color: #a855f7; }
+
+/* Pagination */
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+.pagination-btn.active {
+    background-color: #10b981;
+    border-color: #10b981;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .font-headline {
+        font-size: 2rem !important;
+    }
+    
+    .logo-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+    }
+}
+
+/* Overlay de lectura */
+.reading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.95);
+    z-index: 1000;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.reading-content {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #1a1a1a;
+    border-radius: 1rem;
+    border: 1px solid #3a3a3a;
+}
+
+/* View counter animation */
+@keyframes countUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.view-count {
+    animation: countUp 0.3s ease;
+}
+
+/* Search highlight */
+.search-highlight {
+    background-color: rgba(16, 185, 129, 0.3);
+    padding: 0 0.25rem;
+    border-radius: 0.25rem;
+}

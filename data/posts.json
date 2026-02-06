@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "title": "Falla en OS",
+      "category": ["Redes", "Programación"],  
+      "image": "modelo-osi.jpg",
+      "excerpt": "Definición del estándar ISO/OSI",
+      "contentFile": "post-1.md",
+      "date": "2026-02-05"
+    },
+    {
+      "title": "IA en Medicina",
+      "category": ["Tecnología", "Ciencia"],  
+      "image": "ia-medicina.jpg",
+      "excerpt": "Hospitales implementan IA",
+      "contentFile": "post-2.md",
+      "date": "2026-02-04"
+    },
+    {
+      "title": "Mundial 2026",
+      "category": ["Deportes"],  
+      "image": "futbol.jpg",
+      "excerpt": "Chile clasifica",
+      "contentFile": "post-3.md",
+      "date": "2026-02-03"
+    }
+  ]
+}
