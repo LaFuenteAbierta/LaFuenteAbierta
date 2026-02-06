@@ -23,6 +23,78 @@
       "excerpt": "Chile clasifica",
       "contentFile": "post-3.md",
       "date": "2026-02-03"
+    },
+    {
+      "title": "Falla sdfen OS",
+      "category": ["Redes", "Programación"],  
+      "image": "modelo-osi.jpg",
+      "excerpt": "Definición del estándar ISO/OSI",
+      "contentFile": "post-4.md",
+      "date": "2026-02-05"
+    },
+    {
+      "title": "IA en Medicsdfina",
+      "category": ["Tecnología", "Ciencia"],  
+      "image": "ia-medicina.jpg",
+      "excerpt": "Hospitales implementan IA",
+      "contentFile": "post-5.md",
+      "date": "2026-02-04"
+    },
+    {
+      "title": "Mundial 20sdf26",
+      "category": ["Deportes"],  
+      "image": "futbol.jpg",
+      "excerpt": "Chile clasifica",
+      "contentFile": "post-6.md",
+      "date": "2026-02-03"
+    },
+    {
+      "title": "Fallasdff en OS",
+      "category": ["Redes", "Programación"],  
+      "image": "modelo-osi.jpg",
+      "excerpt": "Definición del estándar ISO/OSI",
+      "contentFile": "post-6.md",
+      "date": "2026-02-05"
+    },
+    {
+      "title": "IA en Medicsdfina",
+      "category": ["Tecnología", "Ciencia"],  
+      "image": "ia-medicina.jpg",
+      "excerpt": "Hospitales implementan IA",
+      "contentFile": "post-7.md",
+      "date": "2026-02-04"
+    },
+    {
+      "title": "Mundial 20fdsf26",
+      "category": ["Deportes"],  
+      "image": "futbol.jpg",
+      "excerpt": "Chile clasifica",
+      "contentFile": "post-8.md",
+      "date": "2026-02-03"
+    },
+    {
+      "title": "Falla en 123OS",
+      "category": ["Redes", "Programación"],  
+      "image": "modelo-osi.jpg",
+      "excerpt": "Definición del estándar ISO/OSI",
+      "contentFile": "post-9.md",
+      "date": "2026-02-05"
+    },
+    {
+      "title": "IA en123 Medicina",
+      "category": ["Tecnología", "Ciencia"],  
+      "image": "ia-medicina.jpg",
+      "excerpt": "Hospitales implementan IA",
+      "contentFile": "post-10.md",
+      "date": "2026-02-04"
+    },
+    {
+      "title": "Mundial 2026q1",
+      "category": ["Deportes"],  
+      "image": "futbol.jpg",
+      "excerpt": "Chile clasifica",
+      "contentFile": "post-11.md",
+      "date": "2026-02-03"
     }
   ]
 }
