@@ -104,6 +104,11 @@ function renderPosts() {
     
     hideNoResults();
     
+    // Asegurar que todas las secciones estén visibles
+    document.getElementById('featured-section').style.display = 'block';
+    document.getElementById('news-grid').style.display = 'grid';
+    document.getElementById('secondary-section').style.display = 'grid';
+    
     // Calcular paginación
     const startIndex = (currentPage - 1) * CONFIG.postsPerPage;
     const endIndex = startIndex + CONFIG.postsPerPage;
@@ -379,6 +384,9 @@ function setupEventListeners() {
             
             // Actualizar breadcrumbs
             updateBreadcrumbs(category);
+            
+            // Scroll suave al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
     
@@ -466,7 +474,7 @@ async function openPost(contentFile, title) {
         overlay.className = 'reading-overlay';
         overlay.innerHTML = `
             <div class="reading-content">
-                <button onclick="this.parentElement.parentElement.remove()" class="float-right text-gray-400 hover:text-white text-3xl leading-none">
+                <button onclick="this.parentElement.parentElement.remove(); document.body.style.overflow = 'auto'" class="float-right text-gray-400 hover:text-white text-3xl leading-none">
                     &times;
                 </button>
                 <h1 class="font-headline text-4xl mb-6 text-accent-primary">${title}</h1>
@@ -486,6 +494,16 @@ async function openPost(contentFile, title) {
                 document.body.style.overflow = 'auto';
             }
         });
+        
+        // Cerrar con tecla ESC
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                overlay.remove();
+                document.body.style.overflow = 'auto';
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
         
     } catch (error) {
         console.error('Error al cargar el post:', error);
@@ -583,3 +601,17 @@ function loadViewCounts() {
     });
     localStorage.setItem('postViews', JSON.stringify(views));
 }
+
+// Botón volver arriba
+window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scroll-top');
+    if (btn) {
+        if (window.scrollY > 500) {
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
+        } else {
+            btn.style.opacity = '0';
+            btn.style.pointerEvents = 'none';
+        }
+    }
+});
