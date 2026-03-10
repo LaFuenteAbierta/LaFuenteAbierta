@@ -501,7 +501,9 @@
         <!-- Footer de aceptación -->
         <div class="tc-footer">
             <div class="tc-scroll-notice" id="tc-scroll-notice">
-                ⚠️ Desplázate hacia abajo para leer los términos completos antes de aceptar.
+                <span>📖 Debes leer los términos completos para poder aceptar —</span>
+                <strong id="tc-pct-label" style="color:#f59e0b;margin-left:.3rem">0% leído</strong>
+                <span style="margin-left:.3rem">— desplázate hasta el final</span>
             </div>
             <div class="tc-checkbox-row">
                 <input type="checkbox" id="tc-chk" disabled>
@@ -711,16 +713,33 @@
     const btnEl      = document.getElementById('tc-btn-accept');
     let scrollDone   = false;
 
-    scrollEl.addEventListener('scroll', function () {
-        const { scrollTop, scrollHeight, clientHeight } = scrollEl;
-        const pct = scrollTop / (scrollHeight - clientHeight);
-        progressEl.style.width = Math.min(pct * 100, 100) + '%';
-        if (pct >= 0.50 && !scrollDone) {
+    function enableCheckbox() {
+        if (!scrollDone) {
             scrollDone = true;
-            noticeEl.classList.add('hidden');
+            const lbl = document.getElementById('tc-pct-label');
+            if (lbl) lbl.textContent = '100% leído';
+            noticeEl.innerHTML = '✅ <strong style="color:#10b981">Has leído los términos completos — ahora puedes marcar la casilla y aceptar.</strong>';
+            noticeEl.style.color = '#10b981';
             chkEl.disabled = false;
         }
+    }
+
+    scrollEl.addEventListener('scroll', function () {
+        const { scrollTop, scrollHeight, clientHeight } = scrollEl;
+        const scrollable = scrollHeight - clientHeight;
+        const pct = scrollable > 0 ? scrollTop / scrollable : 1;
+        const pctInt = Math.min(Math.round(pct * 100), 100);
+        progressEl.style.width = pctInt + '%';
+        const lbl = document.getElementById('tc-pct-label');
+        if (lbl && !scrollDone) lbl.textContent = pctInt + '% leído';
+        if (pct >= 0.90) enableCheckbox();
     });
+
+    // Fallback: si el contenido cabe sin scroll, habilitar de inmediato
+    setTimeout(function() {
+        const { scrollHeight, clientHeight } = scrollEl;
+        if (scrollHeight <= clientHeight + 10) enableCheckbox();
+    }, 400);
 
     chkEl.addEventListener('change', () => { btnEl.disabled = !chkEl.checked; });
 
