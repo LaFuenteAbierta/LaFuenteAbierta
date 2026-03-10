@@ -1,14 +1,5 @@
 {
   "posts": [
-    {
-      "title": "Hola como estas e.e",
-      "category": [
-        "Tecnología"
-      ],
-      "image": "hola-como-estas-e-e.jpg",
-      "excerpt": "Esto es un buen resumen de una noticia si es que hubiese subido una",
-      "contentFile": "hola-como-estas-e-e.md",
-      "date": "2026-03-07"
-    }
+    
   ]
 }
