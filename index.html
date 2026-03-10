@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Fuente Abierta 24/7 - Tu Diario Digital</title>
+    <title>La Fuente Abierta 24/7 - Información Ciudadana Abierta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
@@ -19,9 +19,9 @@
                             600: '#3a3a3a',
                         },
                         accent: {
-                            primary: '#10b981',    // Verde esmeralda principal
-                            secondary: '#059669',  // Verde oscuro
-                            tertiary: '#14b8a6',   // Verde azulado
+                            primary: '#10b981',
+                            secondary: '#059669',
+                            tertiary: '#14b8a6',
                             blue: '#1e40af',
                             orange: '#ea580c',
                         }
@@ -30,8 +30,520 @@
             }
         }
     </script>
+
+    <!-- ============================================================
+         ESTILOS DEL MODAL CLICK WRAP
+         ============================================================ -->
+    <style>
+        /* --- Overlay --- */
+        #tc-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.88);
+            backdrop-filter: blur(6px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: tcFadeIn .35s ease;
+        }
+        @keyframes tcFadeIn  { from { opacity:0 } to { opacity:1 } }
+        @keyframes tcSlideUp { from { opacity:0; transform:translateY(40px) } to { opacity:1; transform:translateY(0) } }
+
+        /* --- Modal --- */
+        #tc-modal {
+            background: #1a1a1a;
+            border: 1px solid #3a3a3a;
+            border-top: 4px solid #10b981;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 780px;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 32px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(16,185,129,.08);
+            animation: tcSlideUp .4s cubic-bezier(.22,1,.36,1);
+            overflow: hidden;
+        }
+
+        /* --- Header --- */
+        .tc-header {
+            padding: 1.25rem 1.5rem 1rem;
+            border-bottom: 1px solid #3a3a3a;
+            display: flex;
+            align-items: flex-start;
+            gap: .85rem;
+            flex-shrink: 0;
+        }
+        .tc-logo-badge {
+            width: 44px; height: 44px; min-width: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+        .tc-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            color: #10b981;
+            letter-spacing: .06em;
+            line-height: 1.2;
+        }
+        .tc-header p { font-size: .75rem; color: #94a3b8; margin-top: .2rem; }
+
+        /* --- Progress bar --- */
+        .tc-scroll-progress { height: 3px; background: #2a2a2a; flex-shrink: 0; }
+        .tc-progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #10b981, #14b8a6);
+            transition: width .1s;
+        }
+
+        /* --- Scroll body --- */
+        .tc-body {
+            overflow-y: auto;
+            padding: 1.5rem;
+            flex: 1;
+            scroll-behavior: smooth;
+            font-family: 'Barlow', sans-serif;
+        }
+        .tc-body::-webkit-scrollbar { width: 5px; }
+        .tc-body::-webkit-scrollbar-track { background: #2a2a2a; }
+        .tc-body::-webkit-scrollbar-thumb { background: #059669; border-radius: 3px; }
+
+        /* --- Tipografía T&C --- */
+        .tc-section { margin-bottom: 1.5rem; }
+        .tc-section h3 {
+            font-size: .75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .1em;
+            color: #10b981;
+            border-left: 3px solid #10b981;
+            padding-left: .65rem; margin-bottom: .75rem;
+        }
+        .tc-section p, .tc-section li {
+            font-size: .845rem; line-height: 1.75; color: #cbd5e1;
+        }
+        .tc-section ul { list-style: none; padding-left: .85rem; }
+        .tc-section ul li::before { content: "▸ "; color: #10b981; font-size: .68rem; }
+        .tc-date { font-size: .7rem; color: #94a3b8; margin-bottom: 1.25rem; padding-bottom: .85rem; border-bottom: 1px solid #2a2a2a; }
+        .tc-sub { font-weight: 600; color: #e2e8f0; font-size: .82rem; margin-top: .9rem; margin-bottom: .5rem; }
+
+        .tc-highlight {
+            background: rgba(16,185,129,.07);
+            border: 1px solid rgba(16,185,129,.18);
+            border-radius: 6px;
+            padding: .75rem .9rem;
+            margin-top: .5rem;
+            font-size: .8rem;
+            color: #a7f3d0;
+        }
+        .tc-highlight-warn {
+            background: rgba(251,191,36,.06);
+            border: 1px solid rgba(251,191,36,.25);
+            border-radius: 6px;
+            padding: .75rem .9rem;
+            margin-top: .75rem;
+            font-size: .8rem;
+            color: #fde68a;
+        }
+        .tc-highlight-danger {
+            background: rgba(239,68,68,.06);
+            border: 1px solid rgba(239,68,68,.25);
+            border-radius: 6px;
+            padding: .75rem .9rem;
+            margin-top: .75rem;
+            font-size: .8rem;
+            color: #fca5a5;
+        }
+
+        /* --- Footer aceptación --- */
+        .tc-footer {
+            padding: 1rem 1.5rem 1.25rem;
+            border-top: 1px solid #3a3a3a;
+            background: #1a1a1a;
+            flex-shrink: 0;
+        }
+        .tc-scroll-notice {
+            font-size: .72rem; color: #f59e0b;
+            margin-bottom: .75rem;
+            display: flex; align-items: center; gap: .35rem;
+        }
+        .tc-scroll-notice.hidden { display: none; }
+
+        .tc-checkbox-row {
+            display: flex; align-items: flex-start;
+            gap: .65rem; margin-bottom: .85rem; cursor: pointer;
+        }
+        .tc-checkbox-row input[type="checkbox"] {
+            appearance: none; -webkit-appearance: none;
+            width: 18px; height: 18px; min-width: 18px;
+            border: 2px solid #3a3a3a; border-radius: 4px;
+            cursor: pointer; transition: all .2s;
+            position: relative; top: 2px;
+        }
+        .tc-checkbox-row input[type="checkbox"]:checked { background: #10b981; border-color: #10b981; }
+        .tc-checkbox-row input[type="checkbox"]:checked::after {
+            content: "✓"; position: absolute;
+            color: white; font-size: .7rem; font-weight: 800;
+            left: 2px; top: -1px;
+        }
+        .tc-checkbox-row label { font-size: .8rem; color: #94a3b8; cursor: pointer; line-height: 1.5; }
+        .tc-checkbox-row label strong { color: #f1f5f9; }
+
+        .tc-btn-row { display: flex; gap: .65rem; justify-content: flex-end; }
+
+        .tc-btn-decline {
+            padding: .55rem 1.25rem; border-radius: 7px;
+            border: 1px solid #3a3a3a; background: transparent;
+            color: #94a3b8; font-size: .82rem; cursor: pointer;
+            transition: all .2s; font-family: 'Barlow', sans-serif;
+        }
+        .tc-btn-decline:hover { background: #2a2a2a; color: #f1f5f9; }
+
+        .tc-btn-accept {
+            padding: .55rem 1.75rem; border-radius: 7px; border: none;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; font-size: .82rem; font-weight: 700;
+            cursor: pointer; transition: all .2s;
+            letter-spacing: .04em; font-family: 'Barlow', sans-serif;
+        }
+        .tc-btn-accept:disabled { opacity: .3; cursor: not-allowed; }
+        .tc-btn-accept:not(:disabled):hover {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            box-shadow: 0 0 20px rgba(16,185,129,.35);
+        }
+
+        /* --- Banner post-aceptación --- */
+        #tc-accepted-banner {
+            display: none;
+            position: fixed; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a1a; border: 1px solid #10b981;
+            border-radius: 8px; padding: .65rem 1.25rem;
+            font-size: .8rem; color: #10b981;
+            z-index: 99998;
+            box-shadow: 0 8px 24px rgba(0,0,0,.5);
+            animation: tcSlideUp .3s ease;
+            white-space: nowrap;
+            font-family: 'Barlow', sans-serif;
+        }
+
+        /* --- Página declinada --- */
+        #tc-declined {
+            display: none; position: fixed; inset: 0;
+            background: #0a0a0a; z-index: 100000;
+            flex-direction: column; align-items: center; justify-content: center;
+            font-family: 'Barlow', sans-serif;
+        }
+
+        /* --- Footer link T&C --- */
+        #footer-tc-link { cursor: pointer; }
+        #footer-tc-link:hover { color: #10b981 !important; }
+
+        /* Responsive ajustes modal */
+        @media (max-width: 640px) {
+            .tc-header h2 { font-size: 1rem; }
+            .tc-btn-row { flex-direction: column; }
+            .tc-btn-accept, .tc-btn-decline { width: 100%; text-align: center; }
+        }
+    </style>
 </head>
 <body class="bg-dark-900 text-white font-body antialiased">
+
+<!-- ============================================================
+     MODAL CLICK WRAP — TÉRMINOS Y CONDICIONES
+     Se muestra al entrar por primera vez o tras actualización
+     ============================================================ -->
+<div id="tc-overlay" role="dialog" aria-modal="true" aria-labelledby="tc-title">
+    <div id="tc-modal">
+
+        <!-- Header -->
+        <div class="tc-header">
+            <div class="tc-logo-badge">📰</div>
+            <div>
+                <h2 id="tc-title">Términos de Uso y Política de Privacidad</h2>
+                <p>La Fuente Abierta 24/7 · Información Ciudadana Abierta — lafuenteabierta.cl &nbsp;|&nbsp; Lee y acepta para continuar</p>
+            </div>
+        </div>
+
+        <!-- Barra de progreso de lectura -->
+        <div class="tc-scroll-progress">
+            <div class="tc-progress-bar" id="tc-progress-bar"></div>
+        </div>
+
+        <!-- Contenido T&C -->
+        <div class="tc-body" id="tc-scroll">
+
+            <p class="tc-date">
+                Versión 1.0 — Vigente desde el 10 de marzo de 2026 &nbsp;|&nbsp; Santiago, Chile<br>
+                Titular: La Fuente Abierta 24/7 &nbsp;|&nbsp; Contacto: <strong>contacto@lafuenteabierta.cl</strong>
+            </p>
+
+            <!-- 1 -->
+            <div class="tc-section">
+                <h3>1. Identificación del titular y ámbito de aplicación</h3>
+                <p>
+                    El presente documento regula los Términos de Uso y la Política de Privacidad del sitio web
+                    <strong>lafuenteabierta.cl</strong> (en adelante, <em>"el Sitio"</em>), operado en la República de Chile
+                    y sujeto a la <strong>Ley N° 19.628</strong> sobre Protección de la Vida Privada,
+                    la <strong>Ley N° 19.496</strong> sobre Protección de los Derechos de los Consumidores
+                    y la normativa del SERNAC.
+                </p>
+                <p style="margin-top:.65rem">
+                    El Sitio es de acceso libre y gratuito. Cualquier persona que acceda, navegue o interactúe con
+                    el Sitio (en adelante, <em>"el Usuario"</em>) acepta íntegramente las condiciones aquí descritas.
+                </p>
+                <div class="tc-highlight-warn">
+                    ⚠️ <strong>Aviso importante:</strong> La Fuente Abierta 24/7 es un <strong>blog colaborativo
+                    de información ciudadana abierta</strong>. Este sitio <strong>no es un medio de comunicación
+                    social</strong> en los términos de la Ley N° 19.733 y <strong>no ejerce periodismo profesional</strong>.
+                    El contenido corresponde a información y opinión ciudadana de carácter colaborativo.
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="tc-section">
+                <h3>2. Descripción del servicio y modelo de participación</h3>
+                <p>La Fuente Abierta 24/7 es un <strong>blog colaborativo de información ciudadana abierta</strong> que opera bajo el siguiente modelo:</p>
+                <ul style="margin-top:.65rem">
+                    <li><strong>Lectura pública:</strong> cualquier visitante puede leer el contenido sin registro previo.</li>
+                    <li><strong>Comunidad:</strong> el debate y la verificación colaborativa ocurre en grupos oficiales de <strong>WhatsApp</strong> y <strong>Telegram</strong>. Unirse a dichos grupos implica aceptar sus propias reglas internas.</li>
+                    <li><strong>Colaboradores verificados:</strong> usuarios que confirman su identidad con el administrador y son autorizados mediante el bot oficial de <strong>Signal</strong>. Pueden enviar: título, cuerpo, imagen, fuente y nick. Toda publicación queda sujeta a revisión y aprobación o rechazo por el administrador antes de ser visible.</li>
+                </ul>
+                <div class="tc-highlight">
+                    ℹ️ El Sitio no opera con cuentas de usuario ni almacena credenciales de acceso.
+                    La identidad de los colaboradores es gestionada de forma manual y confidencial.
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="tc-section">
+                <h3>3. Consentimiento informado y formación del contrato (Click Wrap)</h3>
+                <p>
+                    De conformidad con los principios contractuales del derecho civil chileno —requisitos de
+                    <strong>objeto, causa y consentimiento</strong>— la relación jurídica entre el Sitio y el Usuario
+                    se perfecciona al hacer clic en <em>"Acepto los términos y condiciones"</em>.
+                    Este mecanismo constituye un <strong>click wrap válido y vinculante</strong>.
+                    La fecha, hora y versión aceptada quedan registradas mediante cookie en el dispositivo del Usuario.
+                </p>
+                <div class="tc-highlight">
+                    Si el Usuario no acepta estos términos, debe abandonar el Sitio inmediatamente.
+                    La navegación sin aceptación expresa no constituirá consentimiento válido.
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="tc-section">
+                <h3>4. Obligaciones del usuario</h3>
+                <ul>
+                    <li>Utilizar el Sitio de manera lícita conforme a la legislación chilena.</li>
+                    <li>No reproducir, distribuir ni comercializar el contenido sin autorización expresa.</li>
+                    <li>No interferir con el funcionamiento técnico del Sitio ni intentar accesos no autorizados.</li>
+                    <li>Proporcionar información veraz en caso de participar como colaborador verificado.</li>
+                    <li>No publicar contenido difamatorio, falso, discriminatorio, de odio o que infrinja derechos de terceros.</li>
+                    <li>Respetar los derechos de propiedad intelectual sobre noticias, imágenes y textos publicados.</li>
+                </ul>
+            </div>
+
+            <!-- 5 — RESPONSABILIDAD EXCLUSIVA DEL COLABORADOR -->
+            <div class="tc-section">
+                <h3>5. Responsabilidad del contenido — Colaborador como único responsable</h3>
+
+                <p class="tc-sub">5.1 Identificación y responsabilidad exclusiva del colaborador</p>
+                <p>
+                    Cada colaborador verificado actúa bajo un <strong>nick personal, intransferible y de uso exclusivo</strong>
+                    que lo identifica como único autor y responsable del contenido enviado.
+                    El acceso es estrictamente personal: <strong>no se admite como eximente alegar que otra persona
+                    utilizó su identidad o su canal de envío</strong>. El colaborador es responsable de la custodia
+                    de su acceso al bot de Signal y a los grupos oficiales.
+                </p>
+
+                <p class="tc-sub">5.2 Responsabilidad civil y penal exclusiva por contenido ilícito</p>
+                <p>El colaborador es <strong>civil y penalmente responsable de forma exclusiva</strong> por todo contenido enviado, incluyendo sin limitación:</p>
+                <ul style="margin-top:.5rem">
+                    <li>Contenido <strong>ilegal o ilícito</strong> bajo la legislación chilena vigente.</li>
+                    <li>Información <strong>falsa, engañosa o fake news</strong> que pueda causar daño a terceros.</li>
+                    <li><strong>Injurias, calumnias o difamación</strong> contra personas naturales o jurídicas (Código Penal y Ley N° 19.733).</li>
+                    <li>Contenido que constituya <strong>acoso, hostigamiento o discurso de odio</strong> por cualquier condición.</li>
+                    <li>Material que infrinja <strong>derechos de autor o propiedad intelectual</strong> de terceros (Ley N° 17.336).</li>
+                    <li>Cualquier otro contenido que vulnere derechos fundamentales o la normativa vigente.</li>
+                </ul>
+                <div class="tc-highlight-danger">
+                    🚫 El envío de cualquiera de los contenidos descritos constituye una infracción grave y podrá
+                    derivar en la exclusión permanente del colaborador de todos los canales del Sitio,
+                    sin perjuicio de las acciones legales que correspondan.
+                </div>
+
+                <p class="tc-sub">5.3 Obligación de indemnización al administrador</p>
+                <p>
+                    Si como consecuencia del contenido enviado por un colaborador, el administrador o titular del Sitio
+                    fuera demandado, citado a tribunal, sancionado o incurriera en gastos legales de cualquier naturaleza,
+                    el colaborador responsable <strong>se obliga a indemnizar y dejar indemne al administrador</strong>
+                    por la totalidad de los costos, honorarios de abogados, multas y daños derivados.
+                    Esta obligación se extiende a procedimientos civiles, penales o administrativos,
+                    incluyendo reclamaciones ante el SERNAC o la Agencia de Protección de Datos.
+                </p>
+
+                <p class="tc-sub">5.4 Rol del administrador como moderador — No coautoría</p>
+                <p>
+                    El administrador actúa exclusivamente como <strong>moderador técnico</strong>.
+                    La facultad de revisar, aprobar o rechazar publicaciones constituye un
+                    <strong>control de cumplimiento mínimo</strong> para evitar contenido manifiestamente ilícito,
+                    y <strong>no implica coautoría, coparticipación ni responsabilidad compartida</strong>.
+                    En ningún caso la aprobación de una publicación podrá interpretarse como respaldo,
+                    validación ni autoría del contenido por parte del Sitio.
+                </p>
+                <p style="margin-top:.65rem">
+                    El Sitio no garantiza la disponibilidad continua del servicio ni la exactitud de la información publicada.
+                    Los Usuarios acceden al contenido bajo su propia responsabilidad.
+                </p>
+            </div>
+
+            <!-- 6 -->
+            <div class="tc-section">
+                <h3>6. Propiedad intelectual</h3>
+                <p>
+                    La marca, diseño, código fuente, logotipos y contenidos originales de <em>La Fuente Abierta 24/7</em>
+                    están protegidos por la <strong>Ley N° 17.336</strong>. Los colaboradores verificados ceden al Sitio
+                    una licencia <strong>no exclusiva, gratuita y territorial</strong> para publicar, difundir y archivar
+                    el contenido enviado, conservando sus derechos morales de autoría.
+                    El colaborador garantiza poseer todos los derechos sobre el material enviado, siendo
+                    el único responsable ante eventuales reclamos de terceros.
+                </p>
+            </div>
+
+            <!-- 7 -->
+            <div class="tc-section">
+                <h3>7. Política de privacidad y tratamiento de datos personales</h3>
+                <p>En cumplimiento de la <strong>Ley N° 19.628</strong>, el Sitio informa que recopila y trata los siguientes datos:</p>
+
+                <p class="tc-sub">7.1 Datos recopilados automáticamente</p>
+                <ul style="margin-top:.4rem">
+                    <li><strong>Dirección IP y geolocalización aproximada</strong> (país, región, ciudad).</li>
+                    <li><strong>Comportamiento de navegación:</strong> páginas visitadas, tiempo de permanencia, secciones consultadas, términos buscados y artículos leídos.</li>
+                    <li><strong>Datos técnicos del dispositivo:</strong> tipo de dispositivo, sistema operativo y navegador.</li>
+                    <li><strong>Cookies publicitarias y de seguimiento</strong> para análisis de audiencia y segmentación de publicidad.</li>
+                </ul>
+
+                <p class="tc-sub">7.2 Finalidad del tratamiento (Data Mining y analítica)</p>
+                <ul style="margin-top:.4rem">
+                    <li>Análisis estadístico del tráfico y comportamiento de audiencia (<em>data mining</em>).</li>
+                    <li>Mejora de la experiencia editorial y personalización de contenidos.</li>
+                    <li>Segmentación para publicidad contextual y de terceros.</li>
+                    <li>Detección de accesos fraudulentos o maliciosos.</li>
+                </ul>
+
+                <p class="tc-sub">7.3 Base legal del tratamiento</p>
+                <p>
+                    El tratamiento se realiza con base en el <strong>consentimiento explícito</strong> otorgado
+                    mediante este click wrap, conforme al artículo 4° de la Ley N° 19.628.
+                    En caso de compartir datos con terceros (Google Analytics, Meta Pixel u otros),
+                    se informará al Usuario y se contará con las garantías contractuales correspondientes.
+                </p>
+
+                <p class="tc-sub">7.4 Derechos ARCO</p>
+                <p>
+                    El Usuario tiene derecho a <strong>Acceder, Rectificar, Cancelar y Oponerse</strong> al
+                    tratamiento de sus datos. Para ejercerlos: <strong>contacto@lafuenteabierta.cl</strong>.
+                    Plazo de respuesta: <strong>10 días hábiles</strong>.
+                </p>
+
+                <p class="tc-sub">7.5 Retención y seguridad</p>
+                <p>
+                    Los datos se conservarán mientras sean necesarios para los fines descritos.
+                    Se aplican medidas técnicas razonables para proteger la información de accesos
+                    no autorizados, pérdida o alteración.
+                </p>
+
+                <div class="tc-highlight">
+                    🍪 Al aceptar, el Usuario consiente el uso de cookies técnicas, analíticas y publicitarias.
+                    Puede gestionarlas desde la configuración de su navegador.
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="tc-section">
+                <h3>8. Legislación aplicable y jurisdicción</h3>
+                <p>
+                    Este contrato se rige por las leyes de la <strong>República de Chile</strong>.
+                    Las controversias se someten a los <strong>Tribunales Ordinarios de Justicia de Santiago</strong>,
+                    sin perjuicio del derecho del Usuario de recurrir ante el <strong>SERNAC</strong> o los
+                    juzgados de policía local conforme a la Ley N° 19.496. Los usuarios residentes en la
+                    <strong>Unión Europea</strong> cuentan con las protecciones del <strong>RGPD</strong>
+                    y los de California con el <strong>CalOPPA</strong>.
+                </p>
+            </div>
+
+            <!-- 9 -->
+            <div class="tc-section">
+                <h3>9. Contratos de adhesión</h3>
+                <p>
+                    Este instrumento tiene naturaleza de <strong>contrato de adhesión</strong> (Ley N° 19.496).
+                    Cualquier cláusula ambigua se interpretará a favor del Usuario.
+                    El Sitio declara no incluir cláusulas abusivas y cumplir con las exigencias de
+                    transparencia del SERNAC.
+                </p>
+            </div>
+
+            <!-- 10 -->
+            <div class="tc-section">
+                <h3>10. Modificación de los términos</h3>
+                <p>
+                    El titular puede modificar estos Términos en cualquier momento. Los cambios se notificarán
+                    mediante un nuevo aviso de aceptación al ingresar al Sitio. La versión vigente estará
+                    siempre disponible en la sección <em>"Términos y condiciones"</em> del pie de página.
+                </p>
+            </div>
+
+        </div><!-- /tc-body -->
+
+        <!-- Footer de aceptación -->
+        <div class="tc-footer">
+            <div class="tc-scroll-notice" id="tc-scroll-notice">
+                ⚠️ Desplázate hacia abajo para leer los términos completos antes de aceptar.
+            </div>
+            <div class="tc-checkbox-row">
+                <input type="checkbox" id="tc-chk" disabled>
+                <label for="tc-chk">
+                    He leído y acepto los <strong>Términos de Uso y la Política de Privacidad</strong>
+                    de La Fuente Abierta 24/7, incluyendo el tratamiento de mis datos personales
+                    (IP, comportamiento de navegación, dispositivo y cookies publicitarias)
+                    conforme a la Ley N° 19.628 de Chile.
+                </label>
+            </div>
+            <div class="tc-btn-row">
+                <button class="tc-btn-decline" onclick="tcDecline()">No acepto — Salir</button>
+                <button class="tc-btn-accept" id="tc-btn-accept" disabled onclick="tcAccept()">
+                    ✓ Acepto los términos y condiciones
+                </button>
+            </div>
+        </div>
+
+    </div><!-- /tc-modal -->
+</div><!-- /tc-overlay -->
+
+<!-- Banner post-aceptación -->
+<div id="tc-accepted-banner">✅ Términos aceptados — Bienvenido/a a La Fuente Abierta 24/7</div>
+
+<!-- Página declinada -->
+<div id="tc-declined">
+    <div style="font-size:3.5rem;margin-bottom:1rem">🚪</div>
+    <h3 style="color:#94a3b8;font-size:1.4rem;margin-bottom:.5rem;font-family:'Bebas Neue',sans-serif;letter-spacing:.05em">
+        No puedes acceder sin aceptar los términos
+    </h3>
+    <p style="color:#475569;font-size:.875rem;max-width:380px;text-align:center;margin-bottom:1.5rem;font-family:'Barlow',sans-serif">
+        Para proteger tus derechos y los nuestros, el acceso requiere la aceptación expresa de los Términos de Uso.
+    </p>
+    <button onclick="tcReload()"
+        style="padding:.6rem 1.75rem;background:#10b981;color:white;border:none;border-radius:7px;font-weight:700;cursor:pointer;font-size:.875rem;font-family:'Barlow',sans-serif;">
+        ← Volver y revisar los términos
+    </button>
+</div>
+
+<!-- ============================================================
+     PÁGINA PRINCIPAL
+     ============================================================ -->
 
     <!-- Breaking News Bar -->
     <div id="breaking-news-bar" class="bg-accent-primary text-white py-2 px-4 text-center text-sm font-semibold tracking-wide">
@@ -65,53 +577,18 @@
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex items-center justify-between">
                 <ul class="flex overflow-x-auto space-x-8 py-4 text-sm font-semibold tracking-wide" id="categories-nav">
-                    <li>
-                        <a href="#" class="nav-link active text-white hover:text-accent-primary transition-colors whitespace-nowrap border-b-2 border-accent-primary pb-1" data-category="all">
-                            INICIO
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Política">
-                            POLÍTICA
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Economía">
-                            ECONOMÍA
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Deportes">
-                            DEPORTES
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Tecnología">
-                            TECNOLOGÍA
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Cultura">
-                            CULTURA
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Internacional">
-                            INTERNACIONAL
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Opinión">
-                            OPINIÓN
-                        </a>
-                    </li>
+                    <li><a href="#" class="nav-link active text-white hover:text-accent-primary transition-colors whitespace-nowrap border-b-2 border-accent-primary pb-1" data-category="all">INICIO</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Política">POLÍTICA</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Economía">ECONOMÍA</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Deportes">DEPORTES</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Tecnología">TECNOLOGÍA</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Cultura">CULTURA</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Internacional">INTERNACIONAL</a></li>
+                    <li><a href="#" class="nav-link text-gray-300 hover:text-white transition-colors whitespace-nowrap" data-category="Opinión">OPINIÓN</a></li>
                 </ul>
-                <!-- Search Box -->
                 <div class="hidden md:flex items-center ml-4">
                     <div class="relative">
-                        <input type="text" 
-                               id="search-input" 
-                               placeholder="Buscar noticias..." 
+                        <input type="text" id="search-input" placeholder="Buscar noticias..."
                                class="bg-dark-800 text-white px-4 py-2 pr-10 rounded-lg border border-dark-600 focus:border-accent-primary focus:outline-none w-64 text-sm">
                         <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -131,8 +608,6 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Loading Skeleton -->
         <div id="loading-skeleton" class="space-y-6">
             <div class="animate-pulse bg-dark-800 rounded-lg h-96"></div>
             <div class="grid md:grid-cols-3 gap-6">
@@ -141,44 +616,19 @@
                 <div class="animate-pulse bg-dark-800 rounded-lg h-64"></div>
             </div>
         </div>
-
-        <!-- Featured Story -->
-        <section class="mb-12 animate-fade-in stagger-1" id="featured-section" style="display:none;">
-            <!-- Se llenará dinámicamente -->
-        </section>
-
-        <!-- News Grid -->
-        <section class="grid md:grid-cols-3 gap-6 mb-12" id="news-grid" style="display:none;">
-            <!-- Se llenará dinámicamente -->
-        </section>
-
-        <!-- Pagination -->
-        <div id="pagination" class="flex justify-center gap-2 mb-12" style="display:none;">
-            <!-- Se llenará dinámicamente -->
-        </div>
-
-        <!-- Secondary News -->
+        <section class="mb-12 animate-fade-in stagger-1" id="featured-section" style="display:none;"></section>
+        <section class="grid md:grid-cols-3 gap-6 mb-12" id="news-grid" style="display:none;"></section>
+        <div id="pagination" class="flex justify-center gap-2 mb-12" style="display:none;"></div>
         <section class="grid md:grid-cols-2 gap-6 mb-12" style="display:none;" id="secondary-section">
-            
-            <!-- Left Column - Más Noticias -->
             <div class="space-y-6">
                 <h2 class="font-headline text-3xl border-l-4 border-accent-primary pl-4 mb-6">MÁS NOTICIAS</h2>
-                <div id="secondary-news">
-                    <!-- Se llenará dinámicamente -->
-                </div>
+                <div id="secondary-news"></div>
             </div>
-
-            <!-- Right Column - Lo Más Leído -->
             <div>
                 <h2 class="font-headline text-3xl border-l-4 border-accent-primary pl-4 mb-6">LO MÁS LEÍDO</h2>
-                <div class="bg-dark-800 rounded-lg border border-dark-600 p-6" id="most-read">
-                    <!-- Se llenará dinámicamente -->
-                </div>
+                <div class="bg-dark-800 rounded-lg border border-dark-600 p-6" id="most-read"></div>
             </div>
-
         </section>
-
-        <!-- No Results -->
         <div id="no-results" style="display:none;" class="text-center py-16">
             <svg class="w-24 h-24 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -186,7 +636,6 @@
             <h3 class="font-headline text-3xl text-gray-500 mb-2">No se encontraron noticias</h3>
             <p class="text-gray-600">Intenta con otra categoría o término de búsqueda</p>
         </div>
-
     </main>
 
     <!-- Footer -->
@@ -198,7 +647,7 @@
                         <img src="./images/lfa-1.png" alt="Logo" class="w-16 h-16 rounded-full animate-slide-down">
                         <h3 class="font-headline text-2xl text-accent-primary">LA FUENTE ABIERTA</h3>
                     </div>
-                    <p class="text-gray-400 text-sm">Tu fuente confiable de información al instante.</p>
+                    <p class="text-gray-400 text-sm">Información Ciudadana Abierta al instante.</p>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4 text-sm tracking-wider">SECCIONES</h4>
@@ -218,32 +667,115 @@
                         <li><a href="#" class="hover:text-white transition-colors">Quiénes somos</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Publicidad</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Términos y condiciones</a></li>
+                        <li><a id="footer-tc-link" class="hover:text-white transition-colors" onclick="tcShowAgain()">Términos y condiciones</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4 text-sm tracking-wider">SÍGUENOS</h4>
                     <div class="flex gap-3">
-                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <span class="text-xl">𝕏</span>
-                        </a>
-                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <span class="text-xl">f</span>
-                        </a>
-                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <span class="text-xl">in</span>
-                        </a>
+                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors"><span class="text-xl">𝕏</span></a>
+                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors"><span class="text-xl">f</span></a>
+                        <a href="#" class="bg-dark-700 hover:bg-accent-primary w-10 h-10 rounded-full flex items-center justify-center transition-colors"><span class="text-xl">in</span></a>
                     </div>
                 </div>
             </div>
             <div class="border-t border-dark-600 pt-6 text-center text-gray-500 text-sm">
-                <p>&copy; 2026 La Fuente Abierta 24/7. Todos los derechos reservados.</p>
+                <p>&copy; 2026 La Fuente Abierta 24/7 · Información Ciudadana Abierta. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="js/app.js"></script>
+
+<!-- ============================================================
+     LÓGICA DEL CLICK WRAP
+     ============================================================ -->
+<script>
+    const TC_VERSION  = "1.0";
+    const TC_KEY      = "lfa_tc_accepted";
+    const TC_TS_KEY   = "lfa_tc_timestamp";
+
+    // --- Verificar aceptación previa al cargar ---
+    (function init() {
+        if (tcGetCookie(TC_KEY) === TC_VERSION) {
+            document.getElementById('tc-overlay').style.display = 'none';
+        }
+        // El link del footer siempre activo
+    })();
+
+    // --- Scroll → habilitar checkbox ---
+    const scrollEl   = document.getElementById('tc-scroll');
+    const progressEl = document.getElementById('tc-progress-bar');
+    const noticeEl   = document.getElementById('tc-scroll-notice');
+    const chkEl      = document.getElementById('tc-chk');
+    const btnEl      = document.getElementById('tc-btn-accept');
+    let scrollDone   = false;
+
+    scrollEl.addEventListener('scroll', function () {
+        const { scrollTop, scrollHeight, clientHeight } = scrollEl;
+        const pct = scrollTop / (scrollHeight - clientHeight);
+        progressEl.style.width = Math.min(pct * 100, 100) + '%';
+        if (pct >= 0.50 && !scrollDone) {
+            scrollDone = true;
+            noticeEl.classList.add('hidden');
+            chkEl.disabled = false;
+        }
+    });
+
+    chkEl.addEventListener('change', () => { btnEl.disabled = !chkEl.checked; });
+
+    // --- Aceptar ---
+    function tcAccept() {
+        const ts = new Date().toISOString();
+        tcSetCookie(TC_KEY, TC_VERSION, 365);
+        tcSetCookie(TC_TS_KEY, ts, 365);
+        document.getElementById('tc-overlay').style.display = 'none';
+        // Mostrar banner
+        const b = document.getElementById('tc-accepted-banner');
+        b.style.display = 'block'; b.style.opacity = '1'; b.style.transition = '';
+        setTimeout(() => { b.style.transition = 'opacity .5s'; b.style.opacity = '0'; }, 3200);
+        setTimeout(() => { b.style.display = 'none'; }, 3800);
+        console.log('✅ T&C aceptados:', { version: TC_VERSION, timestamp: ts });
+    }
+
+    // --- Rechazar ---
+    function tcDecline() {
+        document.getElementById('tc-overlay').style.display = 'none';
+        const d = document.getElementById('tc-declined');
+        d.style.display = 'flex';
+    }
+
+    // --- Recargar desde página declinada ---
+    function tcReload() {
+        document.getElementById('tc-declined').style.display = 'none';
+        // Resetear modal
+        scrollDone = false; chkEl.checked = false; chkEl.disabled = true;
+        btnEl.disabled = true; progressEl.style.width = '0%';
+        noticeEl.classList.remove('hidden');
+        scrollEl.scrollTop = 0;
+        document.getElementById('tc-overlay').style.display = 'flex';
+    }
+
+    // --- Mostrar T&C desde footer ---
+    function tcShowAgain() {
+        scrollDone = false; chkEl.checked = false; chkEl.disabled = true;
+        btnEl.disabled = true; progressEl.style.width = '0%';
+        noticeEl.classList.remove('hidden');
+        scrollEl.scrollTop = 0;
+        document.getElementById('tc-overlay').style.display = 'flex';
+    }
+
+    // --- Helpers cookies ---
+    function tcSetCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + days * 86400000);
+        document.cookie = `${name}=${value};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+    }
+    function tcGetCookie(name) {
+        const m = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return m ? m[2] : null;
+    }
+</script>
 
 </body>
 </html>
