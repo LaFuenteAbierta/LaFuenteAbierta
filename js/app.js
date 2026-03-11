@@ -49,21 +49,21 @@ async function loadPosts() {
     try {
         const response = await fetch(CONFIG.postsDataFile);
         if (!response.ok) throw new Error('No se pudo cargar el archivo de posts');
-        
+
         const data = await response.json();
         appState.allPosts = data.posts || [];
-        
+
         // Ordenar por fecha (más reciente primero)
         appState.allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
+
         // Cargar vistas desde localStorage
         loadViewCounts();
-        
+
         // Renderizar
         appState.filteredPosts = [...appState.allPosts];
         renderPosts();
         hideLoadingSkeleton();
-        
+
     } catch (error) {
         console.error('Error al cargar posts:', error);
         showError('No se pudieron cargar las noticias. Por favor, intenta más tarde.');
@@ -96,24 +96,24 @@ function showError(message) {
 // Renderizar posts
 function renderPosts() {
     const { filteredPosts, currentPage } = appState;
-    
+
     if (filteredPosts.length === 0) {
         showNoResults();
         return;
     }
-    
+
     hideNoResults();
-    
+
     // Asegurar que todas las secciones estén visibles
     document.getElementById('featured-section').style.display = 'block';
     document.getElementById('news-grid').style.display = 'grid';
     document.getElementById('secondary-section').style.display = 'grid';
-    
+
     // Calcular paginación
     const startIndex = (currentPage - 1) * CONFIG.postsPerPage;
     const endIndex = startIndex + CONFIG.postsPerPage;
     const postsToShow = filteredPosts.slice(startIndex, endIndex);
-    
+
     // Featured (primer post)
     if (currentPage === 1 && postsToShow.length > 0) {
         renderFeaturedPost(postsToShow[0]);
@@ -124,7 +124,7 @@ function renderPosts() {
         renderNewsGrid(postsToShow.slice(0, 6));
         renderSecondaryNews([]);
     }
-    
+
     renderMostRead();
     renderPagination();
     updateBreakingNews();
@@ -134,14 +134,14 @@ function renderPosts() {
 function renderFeaturedPost(post) {
     const section = document.getElementById('featured-section');
     const isNew = isPostNew(post.date);
-    
+
     section.style.display = 'block';
     section.innerHTML = `
         <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-primary">
             <div class="grid md:grid-cols-2 gap-0">
                 <div class="overflow-hidden">
-                    <img src="${CONFIG.imagesFolder}${post.image}" 
-                         alt="${post.title}" 
+                    <img src="${CONFIG.imagesFolder}${post.image}"
+                         alt="${post.title}"
                          class="w-full h-full object-cover min-h-[300px]"
                          onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=600&fit=crop'">
                 </div>
@@ -177,7 +177,7 @@ function renderFeaturedPost(post) {
                         </span>
                     </div>
                     <a href="#" onclick="openPost('${post.contentFile}', '${post.title}'); return false;" class="inline-flex items-center text-accent-primary font-bold hover:underline group">
-                        Leer más 
+                        Leer más
                         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
@@ -191,20 +191,20 @@ function renderFeaturedPost(post) {
 // Renderizar grid de noticias
 function renderNewsGrid(posts) {
     const grid = document.getElementById('news-grid');
-    
+
     if (posts.length === 0) {
         grid.style.display = 'none';
         return;
     }
-    
+
     grid.style.display = 'grid';
     grid.innerHTML = posts.map((post, index) => {
         const isNew = isPostNew(post.date);
         return `
             <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-primary animate-fade-in stagger-${index + 2}">
                 <div class="overflow-hidden cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
-                    <img src="${CONFIG.imagesFolder}${post.image}" 
-                         alt="${post.title}" 
+                    <img src="${CONFIG.imagesFolder}${post.image}"
+                         alt="${post.title}"
                          class="w-full h-48 object-cover"
                          onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=400&fit=crop'">
                 </div>
@@ -242,11 +242,11 @@ function renderNewsGrid(posts) {
 // Renderizar noticias secundarias
 function renderSecondaryNews(posts) {
     const container = document.getElementById('secondary-news');
-    
+
     container.innerHTML = posts.slice(0, 3).map(post => `
         <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-primary cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
-            <img src="${CONFIG.imagesFolder}${post.image}" 
-                 alt="${post.title}" 
+            <img src="${CONFIG.imagesFolder}${post.image}"
+                 alt="${post.title}"
                  class="w-32 h-24 object-cover rounded flex-shrink-0"
                  onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&h=150&fit=crop'">
             <div>
@@ -269,12 +269,11 @@ function renderSecondaryNews(posts) {
 // Renderizar "Lo más leído"
 function renderMostRead() {
     const container = document.getElementById('most-read');
-    
-    // Ordenar por vistas
+
     const mostRead = [...appState.allPosts]
         .sort((a, b) => getViewCount(b.contentFile) - getViewCount(a.contentFile))
         .slice(0, 5);
-    
+
     container.innerHTML = `
         <ol class="space-y-5">
             ${mostRead.map((post, index) => `
@@ -298,22 +297,20 @@ function renderMostRead() {
 function renderPagination() {
     const container = document.getElementById('pagination');
     const totalPages = Math.ceil(appState.filteredPosts.length / CONFIG.postsPerPage);
-    
+
     if (totalPages <= 1) {
         container.style.display = 'none';
         return;
     }
-    
+
     container.style.display = 'flex';
     container.innerHTML = '';
-    
-    // Botón anterior
+
     if (appState.currentPage > 1) {
         const prevBtn = createPageButton('‹ Anterior', appState.currentPage - 1);
         container.appendChild(prevBtn);
     }
-    
-    // Números de página
+
     for (let i = 1; i <= totalPages; i++) {
         if (i === 1 || i === totalPages || (i >= appState.currentPage - 1 && i <= appState.currentPage + 1)) {
             const pageBtn = createPageButton(i, i, i === appState.currentPage);
@@ -325,8 +322,7 @@ function renderPagination() {
             container.appendChild(dots);
         }
     }
-    
-    // Botón siguiente
+
     if (appState.currentPage < totalPages) {
         const nextBtn = createPageButton('Siguiente ›', appState.currentPage + 1);
         container.appendChild(nextBtn);
@@ -369,28 +365,22 @@ function hideNoResults() {
 
 // Configurar event listeners
 function setupEventListeners() {
-    // Filtrado por categoría
     document.addEventListener('click', (e) => {
         if (e.target.matches('[data-category]')) {
             e.preventDefault();
             const category = e.target.dataset.category;
             filterByCategory(category);
-            
-            // Actualizar navegación activa
+
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
             });
             e.target.classList.add('active');
-            
-            // Actualizar breadcrumbs
+
             updateBreadcrumbs(category);
-            
-            // Scroll suave al inicio
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
-    
-    // Búsqueda
+
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
         let searchTimeout;
@@ -407,16 +397,15 @@ function setupEventListeners() {
 function filterByCategory(category) {
     appState.currentCategory = category;
     appState.currentPage = 1;
-    
+
     if (category === 'all') {
         appState.filteredPosts = [...appState.allPosts];
     } else {
-        appState.filteredPosts = appState.allPosts.filter(post => 
+        appState.filteredPosts = appState.allPosts.filter(post =>
             post.category.includes(category)
         );
     }
-    
-    // Aplicar búsqueda si existe
+
     if (appState.searchTerm) {
         searchPosts(appState.searchTerm);
     } else {
@@ -428,21 +417,21 @@ function filterByCategory(category) {
 function searchPosts(term) {
     appState.searchTerm = term.toLowerCase();
     appState.currentPage = 1;
-    
-    const baseArray = appState.currentCategory === 'all' 
-        ? appState.allPosts 
+
+    const baseArray = appState.currentCategory === 'all'
+        ? appState.allPosts
         : appState.allPosts.filter(post => post.category.includes(appState.currentCategory));
-    
+
     if (!term) {
         appState.filteredPosts = baseArray;
     } else {
-        appState.filteredPosts = baseArray.filter(post => 
+        appState.filteredPosts = baseArray.filter(post =>
             post.title.toLowerCase().includes(term) ||
             post.excerpt.toLowerCase().includes(term) ||
             post.category.some(cat => cat.toLowerCase().includes(term))
         );
     }
-    
+
     renderPosts();
 }
 
@@ -463,39 +452,38 @@ function updateBreadcrumbs(category) {
 // Abrir post completo
 async function openPost(contentFile, title) {
     incrementViewCount(contentFile);
-    
+
     try {
         const response = await fetch(CONFIG.postsFolder + contentFile);
         const markdown = await response.text();
         const html = markdownToHTML(markdown);
-        
-        // Crear overlay
+
         const overlay = document.createElement('div');
         overlay.className = 'reading-overlay';
         overlay.innerHTML = `
-            <div class="reading-content">
-                <button onclick="this.parentElement.parentElement.remove(); document.body.style.overflow = 'auto'" class="float-right text-gray-400 hover:text-white text-3xl leading-none">
+            <div class="reading-content" style="max-width:820px;width:95%;margin:0 auto;padding:2.5rem 2rem;font-size:1.08rem;line-height:1.85;">
+                <button onclick="this.parentElement.parentElement.remove(); document.body.style.overflow = 'auto'"
+                    style="float:right;font-size:2rem;color:#94a3b8;background:none;border:none;cursor:pointer;line-height:1;margin-left:1rem;"
+                    onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
                     &times;
                 </button>
-                <h1 class="font-headline text-4xl mb-6 text-accent-primary">${title}</h1>
-                <div class="prose prose-invert max-w-none">
+                <h1 class="font-headline" style="font-size:2.4rem;line-height:1.2;color:#10b981;margin-bottom:1.5rem;">${title}</h1>
+                <div style="color:#cbd5e1;">
                     ${html}
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden';
-        
-        // Cerrar al hacer clic fuera
+
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) {
                 overlay.remove();
                 document.body.style.overflow = 'auto';
             }
         });
-        
-        // Cerrar con tecla ESC
+
         const escHandler = (e) => {
             if (e.key === 'Escape') {
                 overlay.remove();
@@ -504,40 +492,81 @@ async function openPost(contentFile, title) {
             }
         };
         document.addEventListener('keydown', escHandler);
-        
+
     } catch (error) {
         console.error('Error al cargar el post:', error);
         alert('No se pudo cargar el artículo completo.');
     }
 }
 
-// Convertir Markdown a HTML (básico)
+// Convertir Markdown a HTML
+// FIX: párrafos con \n simple, links planos clickeables, título h1 omitido (ya se muestra arriba)
 function markdownToHTML(markdown) {
     let html = markdown;
-    
-    // Headers
-    html = html.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold mb-3 mt-6">$1</h3>');
-    html = html.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold mb-4 mt-8">$1</h2>');
-    html = html.replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold mb-6 mt-10">$1</h1>');
-    
-    // Bold
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
-    
-    // Italic
+
+    // Normalizar saltos de línea
+    html = html.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+    // Headers (h1 se omite, ya se muestra en el overlay)
+    html = html.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold mb-3 mt-6 text-white">$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold mb-4 mt-8 text-accent-primary">$1</h2>');
+    html = html.replace(/^# .*$/gim, '');
+
+    // Separador ---
+    html = html.replace(/^---$/gim, '<hr class="border-dark-600 my-8">');
+
+    // Bold e Italic
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#f1f5f9;">$1</strong>');
+    html = html.replace(/__(.*?)__/g, '<strong style="color:#f1f5f9;">$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     html = html.replace(/_(.*?)_/g, '<em>$1</em>');
-    
+
     // Code inline
-    html = html.replace(/`(.*?)`/g, '<code class="bg-dark-700 px-2 py-1 rounded text-accent-primary">$1</code>');
-    
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-accent-primary hover:underline">$1</a>');
-    
-    // Paragraphs
-    html = html.split('\n\n').map(p => p.trim() ? `<p class="mb-4">${p}</p>` : '').join('\n');
-    
-    return html;
+    html = html.replace(/`(.*?)`/g, '<code style="background:#2a2a2a;padding:2px 6px;border-radius:4px;color:#10b981;">$1</code>');
+
+    // Links markdown [texto](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener" style="color:#10b981;text-decoration:underline;word-break:break-all;">$1</a>');
+
+    // URLs planas (http/https que no están ya dentro de href)
+    html = html.replace(/(?<![="'])(https?:\/\/[^\s<"'\]]+)/g,
+        '<a href="$1" target="_blank" rel="noopener" style="color:#10b981;text-decoration:underline;word-break:break-all;">$1</a>');
+
+    // Procesar línea por línea para armar párrafos correctamente
+    const lines = html.split('\n');
+    const blocks = [];
+    let currentParagraph = [];
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+
+        if (trimmed.startsWith('<h') || trimmed.startsWith('<hr')) {
+            // Vaciar párrafo acumulado antes del bloque
+            if (currentParagraph.length > 0) {
+                const text = currentParagraph.join(' ').trim();
+                if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
+                currentParagraph = [];
+            }
+            blocks.push(trimmed);
+        } else if (trimmed === '') {
+            // Línea vacía = fin de párrafo
+            if (currentParagraph.length > 0) {
+                const text = currentParagraph.join(' ').trim();
+                if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
+                currentParagraph = [];
+            }
+        } else {
+            currentParagraph.push(trimmed);
+        }
+    }
+
+    // Último párrafo si quedó sin cerrar
+    if (currentParagraph.length > 0) {
+        const text = currentParagraph.join(' ').trim();
+        if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
+    }
+
+    return blocks.join('\n');
 }
 
 // Utilidades
@@ -549,14 +578,14 @@ function getTimeAgo(dateString) {
     const date = new Date(dateString);
     const now = new Date();
     const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-    
+
     if (diffInHours < 1) return 'Hace menos de 1 hora';
     if (diffInHours < 24) return `Hace ${diffInHours} horas`;
-    
+
     const diffInDays = Math.floor(diffInHours / 24);
     if (diffInDays === 1) return 'Hace 1 día';
     if (diffInDays < 7) return `Hace ${diffInDays} días`;
-    
+
     return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
@@ -564,7 +593,7 @@ function isPostNew(dateString) {
     const postDate = new Date(dateString);
     const now = new Date();
     const diffInHours = (now - postDate) / (1000 * 60 * 60);
-    return diffInHours < 48; // Nuevo si tiene menos de 48 horas
+    return diffInHours < 48;
 }
 
 function getReadTime(text) {
@@ -582,7 +611,7 @@ function formatNumber(num) {
 // Sistema de vistas (localStorage)
 function getViewCount(postId) {
     const views = JSON.parse(localStorage.getItem('postViews') || '{}');
-    return views[postId] || Math.floor(Math.random() * 10000) + 1000; // Simulado
+    return views[postId] || Math.floor(Math.random() * 10000) + 1000;
 }
 
 function incrementViewCount(postId) {
@@ -592,7 +621,6 @@ function incrementViewCount(postId) {
 }
 
 function loadViewCounts() {
-    // Inicializar vistas simuladas si no existen
     const views = JSON.parse(localStorage.getItem('postViews') || '{}');
     appState.allPosts.forEach(post => {
         if (!views[post.contentFile]) {
