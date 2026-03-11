@@ -755,3 +755,275 @@ window.addEventListener('scroll', () => {
         }
     }
 });
+
+// ============================================================
+// NUESTRO OBJETIVO
+// ============================================================
+
+function showAboutPage() {
+    // Ocultar secciones de noticias
+    document.getElementById('featured-section').style.display = 'none';
+    document.getElementById('news-grid').style.display = 'none';
+    document.getElementById('secondary-section').style.display = 'none';
+    document.getElementById('pagination').style.display = 'none';
+    document.getElementById('no-results').style.display = 'none';
+    document.getElementById('loading-skeleton').style.display = 'none';
+
+    // Ocultar about si existe por si acaso
+    const existing = document.getElementById('about-section');
+    if (existing) existing.style.display = 'none';
+
+    // Actualizar nav activo
+    document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.remove('active', 'border-b-2', 'border-accent-primary', 'pb-1');
+        l.style.color = '';
+    });
+    // Marcar el link "Nuestro Objetivo" activo
+    document.querySelectorAll('.nav-link-about').forEach(l => {
+        l.style.color = '#10b981';
+        l.style.borderBottom = '2px solid #10b981';
+    });
+
+    // Actualizar breadcrumb
+    document.getElementById('breadcrumbs').innerHTML = `
+        <a href="#" class="text-accent-primary hover:underline" onclick="resetToHome(); return false;">Inicio</a>
+        <span class="text-gray-500 mx-2">/</span>
+        <span class="text-gray-500">Nuestro Objetivo</span>
+    `;
+
+    // Crear o mostrar sección
+    const main = document.querySelector('main');
+    let about = document.getElementById('about-section');
+    if (!about) {
+        about = document.createElement('section');
+        about.id = 'about-section';
+        about.innerHTML = aboutContent();
+        main.appendChild(about);
+    }
+    about.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetToHome() {
+    const about = document.getElementById('about-section');
+    if (about) about.style.display = 'none';
+
+    appState.currentCategory = 'all';
+    appState.currentPage = 1;
+    appState.filteredPosts = [...appState.allPosts];
+
+    document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.remove('active', 'border-b-2', 'border-accent-primary', 'pb-1');
+        l.style.color = '';
+        l.style.borderBottom = '';
+    });
+    document.querySelectorAll('.nav-link-about').forEach(l => {
+        l.style.color = '';
+        l.style.borderBottom = '';
+    });
+
+    const homeLink = document.querySelector('[data-category="all"]');
+    if (homeLink) homeLink.classList.add('active', 'border-b-2', 'border-accent-primary', 'pb-1');
+
+    document.getElementById('breadcrumbs').innerHTML = '<span class="text-gray-500">Inicio</span>';
+    renderPosts();
+    hideLoadingSkeleton();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function aboutContent() {
+    const WSP_LINK = 'https://chat.whatsapp.com/TU_LINK_AQUI';
+
+    const valores = [
+        ['⚖️', 'Búsqueda de veracidad', 'Toda publicación debe incluir sus fuentes. No publicamos afirmaciones que no puedan ser contrastadas de forma independiente por cualquier lector.'],
+        ['🔓', 'Fuentes abiertas', 'El contenido es libre, el proceso es transparente y la plataforma es accesible para cualquier persona que cumpla los estándares mínimos de verificación.'],
+        ['🛡️', 'Responsabilidad individual', 'Cada colaborador firma su contenido con su nick y asume responsabilidad sobre lo que publica. La anonimidad irresponsable no tiene lugar aquí.'],
+        ['🌐', 'Interés público', 'El criterio de publicación es uno: ¿esta información le sirve a la gente para comprender mejor su realidad y tomar decisiones más informadas?'],
+    ];
+
+    const pasos = [
+        ['01', 'Verificación de identidad', 'El colaborador confirma su identidad con el administrador de forma confidencial. Se puede publicar con nombre real o nick.'],
+        ['02', 'Acceso al bot Signal', 'Una vez verificado, el número es autorizado. El proceso de publicación ocurre íntegramente a través del bot oficial.'],
+        ['03', 'Envío y revisión', 'El colaborador envía título, cuerpo, imagen, fuentes y resumen. Cada publicación pasa por revisión antes de ser visible.'],
+        ['04', 'Publicación y firma', 'Una vez aprobada, la noticia se publica firmada con el nick del colaborador y queda disponible públicamente.'],
+    ];
+
+    const requisitos = [
+        'Ser mayor de 15 años con interés en información de relevancia ciudadana.',
+        'Poseer cuenta de Signal activa y verificar identidad de forma privada.',
+        'Aceptar íntegramente los Términos de Uso y Política de Responsabilidad.',
+        'Publicar únicamente información respaldada con fuentes verificables.',
+        'Asumir responsabilidad civil y penal exclusiva sobre el contenido enviado.',
+    ];
+
+    return `
+    <div style="max-width:900px;margin:0 auto;padding:2rem 1rem 4rem;">
+
+        <!-- Hero -->
+        <div style="text-align:center;margin-bottom:4rem;padding-top:1rem;">
+            <span style="display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;
+                letter-spacing:.18em;color:#10b981;border:1px solid rgba(16,185,129,.3);
+                padding:.35rem 1rem;border-radius:999px;margin-bottom:1.5rem;
+                background:rgba(16,185,129,.06);">
+                Información Ciudadana Abierta
+            </span>
+            <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,5.5rem);
+                letter-spacing:.04em;line-height:.95;color:#f1f5f9;margin-bottom:1.25rem;">
+                NUESTRO<br><span style="color:#10b981;">OBJETIVO</span>
+            </h1>
+            <p style="max-width:580px;margin:0 auto;font-size:1.1rem;font-weight:300;
+                color:#cbd5e1;line-height:1.85;">
+                La Fuente Abierta nació de una convicción simple: la información de interés público
+                no debería estar atrapada detrás de intereses editoriales, algoritmos o barreras de pago.
+            </p>
+        </div>
+
+        <!-- Misión -->
+        <div style="margin-bottom:4rem;">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+                color:#10b981;margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem;">
+                <span style="display:block;width:24px;height:2px;background:#10b981;flex-shrink:0;"></span>Misión
+            </div>
+            <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);
+                letter-spacing:.04em;color:#f1f5f9;margin-bottom:1.5rem;">Por qué existimos</h2>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+                <div style="font-size:1.05rem;font-weight:300;color:#cbd5e1;line-height:1.9;">
+                    <p style="margin-bottom:1.25rem;">
+                        Hoy hay más noticias que nunca, pero cada vez es más difícil entender
+                        qué está pasando realmente. Hay demasiada información, pero poca que
+                        explique el contexto o diga las cosas como son.
+                    </p>
+                    <p style="margin-bottom:1.25rem;">
+                        Los medios de comunicación grandes dependen de quienes los financian.
+                        Eso significa que muchas veces <strong style="color:#f1f5f9;">la información que entregan
+                        favorece a sus dueños, auspiciadores o aliados políticos</strong> —
+                        y lo que no les conviene, simplemente no se muestra o se distorsiona.
+                    </p>
+                    <p>
+                        <strong style="color:#f1f5f9;">La Fuente Abierta 24/7 existe para demostrar que otro modelo es posible.</strong>
+                        Un espacio donde personas comunes pueden publicar información relevante,
+                        sin filtros ideológicos ni intereses que tuerzan el relato.
+                    </p>
+                    <div style="border-left:3px solid #10b981;padding-left:1.25rem;margin-top:2rem;">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#10b981;line-height:1;">100%</div>
+                        <div style="font-size:.85rem;color:#64748b;text-transform:uppercase;letter-spacing:.08em;">Contenido de origen de la gente</div>
+                    </div>
+                </div>
+                <div>
+                    <div style="background:#1a1a1a;border:1px solid #3a3a3a;border-left:4px solid #10b981;
+                        border-radius:0 8px 8px 0;padding:2rem;font-size:1.05rem;font-style:italic;
+                        font-weight:300;color:#f1f5f9;line-height:1.75;position:relative;">
+                        <span style="font-family:'Bebas Neue',sans-serif;font-size:5rem;color:#10b981;
+                            opacity:.15;position:absolute;top:-.5rem;left:1rem;line-height:1;">"</span>
+                        La prensa libre no es un privilegio, es una necesidad de cualquier sociedad
+                        que aspire a la autodeterminación. Cuando la gente pierde la capacidad de
+                        informarse con independencia, pierde también la capacidad de decidir con libertad.
+                    </div>
+                    <div style="border-left:3px solid #10b981;padding-left:1.25rem;margin-top:2rem;">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#10b981;line-height:1;">24/7</div>
+                        <div style="font-size:.85rem;color:#64748b;text-transform:uppercase;letter-spacing:.08em;">Disponibilidad sin interrupciones</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #3a3a3a;margin:3rem 0;">
+
+        <!-- Valores -->
+        <div style="margin-bottom:4rem;">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+                color:#10b981;margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem;">
+                <span style="display:block;width:24px;height:2px;background:#10b981;flex-shrink:0;"></span>Principios
+            </div>
+            <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);
+                letter-spacing:.04em;color:#f1f5f9;margin-bottom:1rem;">Valores que nos definen</h2>
+            <p style="font-size:1rem;font-weight:300;color:#cbd5e1;margin-bottom:2rem;">
+                Estos principios no son declaraciones de intención. Son los criterios concretos
+                con los que evaluamos cada publicación.
+            </p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
+                ${valores.map(([icon, title, desc]) => `
+                    <div style="background:#1a1a1a;border:1px solid #3a3a3a;border-radius:10px;padding:1.75rem;">
+                        <div style="font-size:1.6rem;margin-bottom:.85rem;">${icon}</div>
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;
+                            color:#f1f5f9;margin-bottom:.6rem;">${title}</div>
+                        <div style="font-size:.875rem;color:#cbd5e1;line-height:1.75;font-weight:300;">${desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid #3a3a3a;margin:3rem 0;">
+
+        <!-- Colaborar -->
+        <div style="margin-bottom:4rem;">
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;
+                color:#10b981;margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem;">
+                <span style="display:block;width:24px;height:2px;background:#10b981;flex-shrink:0;"></span>Participación
+            </div>
+            <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);
+                letter-spacing:.04em;color:#f1f5f9;margin-bottom:1rem;">Quiénes pueden colaborar</h2>
+            <p style="font-size:1rem;font-weight:300;color:#cbd5e1;margin-bottom:2.5rem;">
+                No se requiere título en periodismo ni experiencia previa.
+                Se requiere rigor, responsabilidad y compromiso con la verdad.
+            </p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:2rem;">
+                ${pasos.map(([num, title, desc]) => `
+                    <div style="background:#1a1a1a;border:1px solid #3a3a3a;border-radius:10px;
+                        padding:1.75rem;position:relative;overflow:hidden;">
+                        <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:#10b981;
+                            opacity:.12;position:absolute;top:.5rem;right:1rem;line-height:1;">${num}</div>
+                        <div style="font-weight:700;color:#f1f5f9;font-size:.9rem;margin-bottom:.5rem;
+                            text-transform:uppercase;letter-spacing:.06em;">${title}</div>
+                        <div style="font-size:.875rem;color:#cbd5e1;line-height:1.7;font-weight:300;">${desc}</div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div style="background:#1a1a1a;border:1px solid #3a3a3a;border-radius:10px;padding:2rem;margin-bottom:1.25rem;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;
+                    color:#f1f5f9;margin-bottom:1.25rem;">Requisitos mínimos para colaborar</div>
+                <ul style="list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.75rem;padding:0;">
+                    ${requisitos.map(r => `
+                        <li style="display:flex;align-items:flex-start;gap:.65rem;
+                            font-size:.9rem;color:#cbd5e1;line-height:1.6;">
+                            <span style="color:#10b981;font-size:.75rem;margin-top:.25rem;flex-shrink:0;">▸</span>${r}
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+
+            <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.2);
+                border-radius:8px;padding:1rem 1.25rem;font-size:.85rem;color:#fca5a5;line-height:1.65;">
+                ⚠️ <strong>Importante:</strong> La publicación de contenido falso, difamatorio o que infrinja
+                derechos de terceros derivará en la exclusión permanente y en las acciones legales que correspondan.
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="background:#1a1a1a;border:1px solid #3a3a3a;border-radius:12px;
+            padding:3rem 2rem;text-align:center;">
+            <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.04em;
+                color:#f1f5f9;margin-bottom:.75rem;">¿Tienes información que el público debe saber?</h3>
+            <p style="color:#94a3b8;font-size:.95rem;max-width:480px;margin:0 auto 1.75rem;font-weight:300;">
+                Si cumples los requisitos y compartes nuestro compromiso, únete al grupo y contacta al administrador.
+            </p>
+            <a href="${WSP_LINK}" target="_blank" rel="noopener"
+                style="display:inline-flex;align-items:center;gap:.6rem;
+                background:linear-gradient(135deg,#10b981,#059669);
+                color:white;padding:.85rem 2rem;border-radius:8px;font-weight:700;font-size:.9rem;
+                text-decoration:none;text-transform:uppercase;letter-spacing:.08em;transition:all .2s;"
+                onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(16,185,129,.35)'"
+                onmouseout="this.style.transform='';this.style.boxShadow=''">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Unirse al grupo de WhatsApp
+            </a>
+        </div>
+
+    </div>
+    `;
+}
