@@ -1,5 +1,17 @@
 {
   "posts": [
-    
+    {
+      "title": "Renuncia en OpenAI: la IA que impulsaría a la humanidad es desviada hacia el control masivo y las armas autónomas",
+      "category": [
+        "Tecnología",
+        "Ciencia",
+        "Redes",
+        "Programación"
+      ],
+      "image": "renuncia-en-openai-la-ia-que-impulsaria-a-la-humanidad-es-desviada-hacia-el-control-masivo-y-las-arm.jpg",
+      "excerpt": "Renuncia la jefa de robótica de OpenAI por acuerdo con el Pentágono que abre la puerta a la vigilancia masiva y armas autónomas. Anthropic dijo no, OpenAI sí, y hay opacidad. ¿Por qué nadie mira?",
+      "contentFile": "renuncia-en-openai-la-ia-que-impulsaria-a-la-humanidad-es-desviada-hacia-el-control-masivo-y-las-arm.md",
+      "date": "2026-03-11"
+    }
   ]
 }
