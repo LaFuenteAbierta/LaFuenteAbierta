@@ -460,14 +460,29 @@ async function openPost(contentFile, title) {
 
         const overlay = document.createElement('div');
         overlay.className = 'reading-overlay';
+        // Buscar imagen del post actual
+        const currentPost = appState.allPosts.find(p => p.contentFile === contentFile);
+        const postImage = currentPost ? `${CONFIG.imagesFolder}${currentPost.image}` : null;
+
         overlay.innerHTML = `
+            <!-- X fija en esquina, se mueve con el scroll -->
+            <button onclick="this.parentElement.remove(); document.body.style.overflow = 'auto'"
+                style="position:fixed;top:1.2rem;right:1.5rem;z-index:99999;
+                       width:44px;height:44px;border-radius:50%;
+                       background:#ef4444;border:none;cursor:pointer;
+                       font-size:1.6rem;color:white;font-weight:bold;
+                       display:flex;align-items:center;justify-content:center;
+                       box-shadow:0 4px 16px rgba(239,68,68,0.5);
+                       transition:background .2s,transform .2s;"
+                onmouseover="this.style.background='#b91c1c';this.style.transform='scale(1.1)'"
+                onmouseout="this.style.background='#ef4444';this.style.transform='scale(1)'">
+                &times;
+            </button>
             <div style="width:100%;max-width:100%;padding:2rem 15%;box-sizing:border-box;font-size:1.15rem;line-height:1.9;">
-                <button onclick="this.parentElement.parentElement.remove(); document.body.style.overflow = 'auto'"
-                    style="float:right;font-size:2rem;color:#94a3b8;background:none;border:none;cursor:pointer;line-height:1;margin-left:1rem;"
-                    onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
-                    &times;
-                </button>
                 <h1 class="font-headline" style="font-size:2.4rem;line-height:1.2;color:#10b981;margin-bottom:1.5rem;">${title}</h1>
+                ${postImage ? `<img src="${postImage}" alt="${title}"
+                    style="width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:2rem;"
+                    onerror="this.style.display='none'">` : ''}
                 <div style="color:#cbd5e1;">
                     ${html}
                 </div>
