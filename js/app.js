@@ -461,7 +461,7 @@ async function openPost(contentFile, title) {
         const overlay = document.createElement('div');
         overlay.className = 'reading-overlay';
         overlay.innerHTML = `
-            <div class="reading-content" style="max-width:820px;width:95%;margin:0 auto;padding:2.5rem 2rem;font-size:1.08rem;line-height:1.85;">
+            <div style="width:100%;max-width:100%;padding:2rem 15%;box-sizing:border-box;font-size:1.15rem;line-height:1.9;">
                 <button onclick="this.parentElement.parentElement.remove(); document.body.style.overflow = 'auto'"
                     style="float:right;font-size:2rem;color:#94a3b8;background:none;border:none;cursor:pointer;line-height:1;margin-left:1rem;"
                     onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
@@ -532,38 +532,19 @@ function markdownToHTML(markdown) {
     html = html.replace(/(?<![="'])(https?:\/\/[^\s<"'\]]+)/g,
         '<a href="$1" target="_blank" rel="noopener" style="color:#10b981;text-decoration:underline;word-break:break-all;">$1</a>');
 
-    // Procesar línea por línea para armar párrafos correctamente
+    // Procesar línea por línea — cada línea no vacía es un párrafo independiente
     const lines = html.split('\n');
     const blocks = [];
-    let currentParagraph = [];
 
     for (const line of lines) {
         const trimmed = line.trim();
+        if (!trimmed) continue;
 
         if (trimmed.startsWith('<h') || trimmed.startsWith('<hr')) {
-            // Vaciar párrafo acumulado antes del bloque
-            if (currentParagraph.length > 0) {
-                const text = currentParagraph.join(' ').trim();
-                if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
-                currentParagraph = [];
-            }
             blocks.push(trimmed);
-        } else if (trimmed === '') {
-            // Línea vacía = fin de párrafo
-            if (currentParagraph.length > 0) {
-                const text = currentParagraph.join(' ').trim();
-                if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
-                currentParagraph = [];
-            }
         } else {
-            currentParagraph.push(trimmed);
+            blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.9;color:#cbd5e1;font-size:1.15rem;">${trimmed}</p>`);
         }
-    }
-
-    // Último párrafo si quedó sin cerrar
-    if (currentParagraph.length > 0) {
-        const text = currentParagraph.join(' ').trim();
-        if (text) blocks.push(`<p style="margin-bottom:1.4rem;line-height:1.85;color:#cbd5e1;">${text}</p>`);
     }
 
     return blocks.join('\n');
