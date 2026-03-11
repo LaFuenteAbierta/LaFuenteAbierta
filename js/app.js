@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateCurrentDate();
     await loadPosts();
     setupEventListeners();
+    handlePostHash(); // abrir post si viene desde link compartido
 });
 
 // Actualizar fecha
@@ -449,6 +450,30 @@ function updateBreadcrumbs(category) {
     }
 }
 
+// Abrir post automáticamente si la URL tiene #post:slug
+function handlePostHash() {
+    const hash = window.location.hash;
+    if (!hash.startsWith('#post:')) return;
+
+    const slug = hash.replace('#post:', '');
+    const post = appState.allPosts.find(p =>
+        p.contentFile === `${slug}.md` || p.slug === slug
+    );
+
+    if (post) {
+        // Pequeño delay para que el DOM esté listo
+        setTimeout(() => openPost(post.contentFile, post.title), 300);
+    }
+}
+
+// Cerrar overlay de lectura
+function closeReadingOverlay() {
+    const overlay = document.querySelector('.reading-overlay');
+    if (overlay) overlay.remove();
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+}
+
 // Abrir post completo
 async function openPost(contentFile, title) {
     incrementViewCount(contentFile);
@@ -458,51 +483,116 @@ async function openPost(contentFile, title) {
         const markdown = await response.text();
         const html = markdownToHTML(markdown);
 
-        const overlay = document.createElement('div');
-        overlay.className = 'reading-overlay';
-        // Buscar imagen del post actual
         const currentPost = appState.allPosts.find(p => p.contentFile === contentFile);
         const postImage = currentPost ? `${CONFIG.imagesFolder}${currentPost.image}` : null;
+        const postExcerpt = currentPost ? currentPost.excerpt : '';
+
+        // URL de la página HTML dedicada del post (generada por el bot)
+        const postSlug = contentFile.replace('.md', '');
+        const postUrl = `${window.location.origin}${window.location.pathname.replace('index.html','').replace(/\/$/, '')}/p/${postSlug}.html`;
+        const shareText = encodeURIComponent(title);
+        const shareUrl  = encodeURIComponent(postUrl);
+
+        const overlay = document.createElement('div');
+        overlay.className = 'reading-overlay';
 
         overlay.innerHTML = `
-            <!-- X fija en esquina, se mueve con el scroll -->
-            <button onclick="this.parentElement.remove(); document.body.style.overflow = 'auto'"
+            <!-- X roja fija, se mueve con el scroll -->
+            <button onclick="closeReadingOverlay()"
                 style="position:fixed;top:1.2rem;right:1.5rem;z-index:99999;
-                       width:44px;height:44px;border-radius:50%;
+                       width:48px;height:48px;border-radius:50%;
                        background:#ef4444;border:none;cursor:pointer;
-                       font-size:1.6rem;color:white;font-weight:bold;
+                       font-size:1.8rem;color:white;font-weight:bold;
                        display:flex;align-items:center;justify-content:center;
                        box-shadow:0 4px 16px rgba(239,68,68,0.5);
                        transition:background .2s,transform .2s;"
                 onmouseover="this.style.background='#b91c1c';this.style.transform='scale(1.1)'"
                 onmouseout="this.style.background='#ef4444';this.style.transform='scale(1)'">
-                &times;
+                &#x2715;
             </button>
+
             <div style="width:100%;max-width:100%;padding:2rem 15%;box-sizing:border-box;font-size:1.15rem;line-height:1.9;">
                 <h1 class="font-headline" style="font-size:2.4rem;line-height:1.2;color:#10b981;margin-bottom:1.5rem;">${title}</h1>
+
                 ${postImage ? `<img src="${postImage}" alt="${title}"
                     style="width:100%;max-height:480px;object-fit:cover;border-radius:8px;margin-bottom:2rem;"
                     onerror="this.style.display='none'">` : ''}
+
                 <div style="color:#cbd5e1;">
                     ${html}
+                </div>
+
+                <!-- Botones de compartir -->
+                <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #3a3a3a;">
+                    <p style="font-size:.85rem;color:#94a3b8;margin-bottom:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;">Compartir noticia</p>
+                    <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+
+                        <!-- Copiar link -->
+                        <button id="copy-link-btn" onclick="copyPostLink('${postUrl}')"
+                            style="display:flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;
+                                   border-radius:8px;border:1px solid #3a3a3a;background:#2a2a2a;
+                                   color:#f1f5f9;font-size:.85rem;cursor:pointer;transition:all .2s;"
+                            onmouseover="this.style.background='#3a3a3a'" onmouseout="this.style.background='#2a2a2a'">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            Copiar link
+                        </button>
+
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" rel="noopener"
+                            style="display:flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;
+                                   border-radius:8px;border:none;background:#25D366;
+                                   color:white;font-size:.85rem;cursor:pointer;text-decoration:none;transition:opacity .2s;"
+                            onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+
+                        <!-- X / Twitter -->
+                        <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" rel="noopener"
+                            style="display:flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;
+                                   border-radius:8px;border:none;background:#000;
+                                   color:white;font-size:.85rem;cursor:pointer;text-decoration:none;transition:opacity .2s;"
+                            onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.727-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            X
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" rel="noopener"
+                            style="display:flex;align-items:center;gap:.5rem;padding:.6rem 1.1rem;
+                                   border-radius:8px;border:none;background:#1877F2;
+                                   color:white;font-size:.85rem;cursor:pointer;text-decoration:none;transition:opacity .2s;"
+                            onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            Facebook
+                        </a>
+
+                    </div>
                 </div>
             </div>
         `;
 
         document.body.appendChild(overlay);
+        // Bloquear scroll del body Y del html
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
 
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.remove();
-                document.body.style.overflow = 'auto';
-            }
+            if (e.target === overlay) closeReadingOverlay();
         });
 
         const escHandler = (e) => {
             if (e.key === 'Escape') {
-                overlay.remove();
-                document.body.style.overflow = 'auto';
+                closeReadingOverlay();
                 document.removeEventListener('keydown', escHandler);
             }
         };
@@ -512,6 +602,32 @@ async function openPost(contentFile, title) {
         console.error('Error al cargar el post:', error);
         alert('No se pudo cargar el artículo completo.');
     }
+}
+
+// Copiar link del post
+function copyPostLink(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-link-btn');
+        if (btn) {
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ ¡Copiado!';
+            btn.style.background = '#065f46';
+            btn.style.borderColor = '#10b981';
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '#2a2a2a';
+                btn.style.borderColor = '#3a3a3a';
+            }, 2000);
+        }
+    }).catch(() => {
+        // Fallback para navegadores sin clipboard API
+        const el = document.createElement('textarea');
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    });
 }
 
 // Convertir Markdown a HTML
