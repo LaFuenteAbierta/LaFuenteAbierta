@@ -8,8 +8,6 @@ Sin embargo, justo cuando el nuevo gobierno prometía endurecer el sistema penal
 Una economía con cicatrices
 En el plano económico, Kast recibe un país con señales contradictorias. La inflación, que tantos dolores de cabeza causó en años recientes, llegó a febrero con un registro de 0%. Una buena noticia. Pero el desempleo trepó al 8,28% y la deuda pública alcanzó un nivel que duplica los activos del Estado, una situación inédita en la historia reciente de Chile.
 El nuevo presidente hereda, en otras palabras, una economía que respira, pero con cicatrices visibles.
-Migración: de prom
-
 ---
 
 ## Fuentes
