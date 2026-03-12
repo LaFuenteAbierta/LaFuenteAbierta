@@ -18,7 +18,54 @@ El factor diplomático: ¿Una salida al conflicto?
 
 En medio del vendaval, los mercados han encontrado un tenue rayo de esperanza. El precio del crudo ha retrocedido más de un 11% desde sus máximos, situándose en torno a los 106 dólares por barril, ante señales de que la administración Trump podría estar buscando una salida negociada.
 
-Fuentes diplomáticas consultadas por este medio apuntan a contactos discretos en Ginebra entre emisarios estadounidenses e iraníes, con m
+Fuentes diplomáticas consultadas por este medio apuntan a contactos discretos en Ginebra entre emisarios estadounidenses e iraníes, con mediación suiza y qatarí. Los términos de un posible acuerdo incluirían:
+ 
+1. Cese al fuego inmediato y retirada de fuerzas de las zonas en conflicto
+2. Garantías de paso seguro para petroleros bajo bandera neutral
+3. Supervisión internacional del Estrecho durante un período de transición
+4. Negociación amplia sobre el programa nuclear iraní a cambio de alivio de sanciones
+ 
+"Hay voluntad de ambas partes para evitar una escalada incontrolable", señala un alto funcionario europeo involucrado en las gestiones. "Ninguno quiere una guerra abierta, pero las dinámicas sobre el terreno pueden desbordar cualquier cálculo racional. El tiempo corre".
+ 
+---
+ 
+Impacto económico
+ 
+La inflación, que comenzaba a dar tregua en las economías desarrolladas, repunta con fuerza. Los índices de precios al consumo podrían añadir entre 2 y 3 puntos porcentuales en los próximos meses, principalmente por el encarecimiento de combustibles, transporte y productos derivados del petróleo.
+ 
+Los bancos centrales, que se preparaban para iniciar recortes de tipos, ven ahora complicado ese escenario. "Es el peor de los mundos posibles para la política monetaria", admite un gobernador de banco central europeo. "Estanflación: menos crecimiento y más inflación. Nuestros instrumentos no están diseñados para esto".
+ 
+---
+ 
+Escenarios posibles
+ 
+Los expertos barajan tres posibles desenlaces para la crisis:
+ 
+Escenario 1: Solución diplomática rápida (probabilidad 40%)
+ 
+· Acuerdo en las próximas 2-3 semanas
+· Reapertura controlada del Estrecho
+· Precios del Brent: retorno a $80-90 hacia verano
+ 
+Escenario 2: Conflicto prolongado (probabilidad 35%)
+ 
+· Bloqueo de 3-6 meses
+· Agotamiento de reservas estratégicas
+· Precios sostenidos en $120-150
+· Recesión global moderada
+ 
+Escenario 3: Escalada regional (probabilidad 25%)
+ 
+· Extensión del conflicto a Arabia Saudí, Emiratos Árabes
+· Ataques a infraestructuras petroleras
+· Precios superiores a $200
+· Recesión global severa
+ 
+---
+ 
+Fuentes
+ 
+Agencia Internacional de la Energía, Plataforma de Seguros Marítimos de Londres, G7, Comisión Europea, analistas de Goldman Sachs, BCE, AIE, centros de estudio independientes.
 
 ---
 
