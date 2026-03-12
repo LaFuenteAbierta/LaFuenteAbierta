@@ -1,6 +1,48 @@
 {
   "posts": [
     {
+      "title": "Mujeres refugiadas: Tres historias de esperanza que reconstruyen vidas",
+      "category": [
+        "Cultura",
+        "Internacional",
+        "Salud"
+      ],
+      "image": "mujeres-refugiadas-tres-historias-de-esperanza-que-reconstruyen-vidas.jpg",
+      "excerpt": "Tres refugiadas convierten su dolor en esperanza: Nawal (Sudán) crea mentorías en Kakuma, Viktoriia (Ucrania) estudia Derecho humanitario y Nora (Siria) sana ayudando a otros.",
+      "contentFile": "mujeres-refugiadas-tres-historias-de-esperanza-que-reconstruyen-vidas.md",
+      "date": "2026-03-12",
+      "author": "FenixAdm",
+      "slug": "mujeres-refugiadas-tres-historias-de-esperanza-que-reconstruyen-vidas"
+    },
+    {
+      "title": "Las primeras consecuencias económicas de la guerra: inflación, recesión y bancos centrales sin salida",
+      "category": [
+        "Política",
+        "Economía",
+        "Internacional"
+      ],
+      "image": "las-primeras-consecuencias-economicas-de-la-guerra-inflacion-recesion-y-bancos-centrales-sin-salida.jpg",
+      "excerpt": "Guerra en Ormuz paraliza 20% del petróleo mundial. Crudo sube 76%. G7 negocia salida mientras crece temor a recesión global.",
+      "contentFile": "las-primeras-consecuencias-economicas-de-la-guerra-inflacion-recesion-y-bancos-centrales-sin-salida.md",
+      "date": "2026-03-12",
+      "author": "FenixAdm",
+      "slug": "las-primeras-consecuencias-economicas-de-la-guerra-inflacion-recesion-y-bancos-centrales-sin-salida"
+    },
+    {
+      "title": "Kast asume el mando",
+      "category": [
+        "Política",
+        "Economía",
+        "Opinión"
+      ],
+      "image": "kast-asume-el-mando.jpg",
+      "excerpt": "Kast asume presidencia de Chile con agenda de seguridad y control: mientras promete mano dura, proyecto apoyado por su sector liberaría 12 mil reos, incluyendo criminales graves.",
+      "contentFile": "kast-asume-el-mando.md",
+      "date": "2026-03-12",
+      "author": "FenixAdm",
+      "slug": "kast-asume-el-mando"
+    },
+    {
       "title": "Renuncia en OpenAI: la IA que impulsaría a la humanidad es desviada hacia el control masivo y las armas autónomas",
       "category": [
         "Tecnología",
