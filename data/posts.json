@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "title": "Ataque a carabinero en Puerto Varas",
+      "category": [
+        "Salud"
+      ],
+      "image": "ataque-a-carabinero-en-puerto-varas.jpg",
+      "excerpt": "Carabinero baleado en Puerto Varas sigue grave con ventilación mecánica. PDI investiga con evidencia balística y busca a sujetos de interés.",
+      "contentFile": "ataque-a-carabinero-en-puerto-varas.md",
+      "date": "2026-03-13",
+      "author": "FenixAdm",
+      "slug": "ataque-a-carabinero-en-puerto-varas"
+    },
+    {
       "title": "Individuo embiste sinagoga en EEUU y abre fuego; autoridades responden como tirador activo",
       "category": [
         "Internacional"
