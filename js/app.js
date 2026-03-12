@@ -48,7 +48,7 @@ function updateCurrentDate() {
 // Cargar posts desde JSON
 async function loadPosts() {
     try {
-        const response = await fetch(CONFIG.postsDataFile);
+        const response = await fetch(CONFIG.postsDataFile + '?v=' + Date.now());
         if (!response.ok) throw new Error('No se pudo cargar el archivo de posts');
 
         const data = await response.json();
@@ -479,7 +479,7 @@ async function openPost(contentFile, title) {
     incrementViewCount(contentFile);
 
     try {
-        const response = await fetch(CONFIG.postsFolder + contentFile);
+        const response = await fetch(CONFIG.postsFolder + contentFile + '?v=' + Date.now());
         const markdown = await response.text();
         const html = markdownToHTML(markdown);
 
