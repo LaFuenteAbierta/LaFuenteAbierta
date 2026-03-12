@@ -8,6 +8,15 @@ Sin embargo, justo cuando el nuevo gobierno prometía endurecer el sistema penal
 Una economía con cicatrices
 En el plano económico, Kast recibe un país con señales contradictorias. La inflación, que tantos dolores de cabeza causó en años recientes, llegó a febrero con un registro de 0%. Una buena noticia. Pero el desempleo trepó al 8,28% y la deuda pública alcanzó un nivel que duplica los activos del Estado, una situación inédita en la historia reciente de Chile.
 El nuevo presidente hereda, en otras palabras, una economía que respira, pero con cicatrices visibles.
+
+Migración
+El control de la migración irregular fue otro pilar de campaña. Ya en los primeros días de gobierno, Kast ordenó la construcción de barreras físicas en la frontera con Bolivia. La medida tiene defensores que la ven como una respuesta necesaria ante el aumento sostenido del ingreso irregular, y críticos que cuestionan su efectividad y el mensaje que envía.
+Los datos muestran que actualmente hay unos 337.000 extranjeros en situación irregular en el país, un aumento del 3.148% desde 2018. Cómo se aborde esta realidad tendrá consecuencias sociales, económicas y diplomáticas que van más allá del símbolo de una barrera.
+
+variable imprevista
+En política exterior, el contexto internacional añade una capa de complejidad. La guerra en Medio Oriente y el regreso de Donald Trump a la Casa Blanca generan presiones que el nuevo gobierno deberá gestionar con cuidado.
+Chile mantiene una dependencia económica significativa con China, su principal socio comercial, al mismo tiempo que Kast comparte cercanía ideológica con la administración Trump. Expertos advierten que la presión estadounidense para distanciar a Chile de Pekín podría tensionar las relaciones con el sector privado local. Encontrar un equilibrio entre alineamiento político e interés económico será uno de los desafíos más delicados del nuevo gobierno.
+ 
 ---
 
 ## Fuentes
