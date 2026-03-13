@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "title": "NASA DART: la Tierra tiene escudo contra asteroides",
+      "category": [
+        "Tecnología",
+        "Ciencia",
+        "Internacional"
+      ],
+      "image": "nasa-dart-la-tierra-tiene-escudo-contra-asteroides.jpg",
+      "excerpt": "La NASA confirmó que su misión DART desvió con éxito el asteroide Dimorphos, alterando su órbita. Los escombros del impacto duplicaron la fuerza. Es la primera técnica probada para defender la Tierra.",
+      "contentFile": "nasa-dart-la-tierra-tiene-escudo-contra-asteroides.md",
+      "date": "2026-03-13",
+      "author": "FenixAdm",
+      "slug": "nasa-dart-la-tierra-tiene-escudo-contra-asteroides"
+    },
+    {
       "title": "Chileno gana el “Nobel” de la arquitectura",
       "category": [
         "Cultura",
