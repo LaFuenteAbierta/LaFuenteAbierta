@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "title": "Chileno gana el “Nobel” de la arquitectura",
+      "category": [
+        "Cultura",
+        "Medio Ambiente",
+        "Nacional"
+      ],
+      "image": "chileno-gana-el-nobel-de-la-arquitectura.jpg",
+      "excerpt": "Radić obtiene el Pritzker 2026. Segundo chileno en ganarlo. Sus edificios \"livianos y cautivadores\" lo hicieron merecedor del \"Nobel\" de arquitectura.",
+      "contentFile": "chileno-gana-el-nobel-de-la-arquitectura.md",
+      "date": "2026-03-13",
+      "author": "FenixAdm",
+      "slug": "chileno-gana-el-nobel-de-la-arquitectura"
+    },
+    {
       "title": "Ataque a carabinero en Puerto Varas",
       "category": [
         "Salud"
