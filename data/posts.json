@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "title": "Medicina del futuro hoy: editan el ADN de un bebé en tiempo récord y lo salvan",
+      "category": [
+        "Tecnología",
+        "Ciencia",
+        "Internacional",
+        "Salud"
+      ],
+      "image": "medicina-del-futuro-hoy-editan-el-adn-de-un-bebe-en-tiempo-record-y-lo-salvan.jpg",
+      "excerpt": "Bebé con enfermedad mortal recibe primera terapia CRISPR personalizada. En 6 meses, corrigieron su ADN y hoy gatea. Hito médico que abre puerta a tratamientos rápidos y adaptables.",
+      "contentFile": "medicina-del-futuro-hoy-editan-el-adn-de-un-bebe-en-tiempo-record-y-lo-salvan.md",
+      "date": "2026-03-13",
+      "author": "FenixAdm",
+      "slug": "medicina-del-futuro-hoy-editan-el-adn-de-un-bebe-en-tiempo-record-y-lo-salvan"
+    },
+    {
       "title": "NASA DART: la Tierra tiene escudo contra asteroides",
       "category": [
         "Tecnología",
