@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "title": "Grandes tecnológicas en la mira: Irán apunta a sus centros de datos",
+      "category": [
+        "Tecnología",
+        "Ciencia",
+        "Internacional",
+        "Programación",
+        "Conflictos"
+      ],
+      "image": "grandes-tecnologicas-en-la-mira-iran-apunta-a-sus-centros-de-datos.jpg",
+      "excerpt": "Irán declara objetivos militares las instalaciones de Amazon, Google, Microsoft, Nvidia, IBM, Oracle y Palantir en Oriente Medio por su colaboración con Israel en Gaza.",
+      "contentFile": "grandes-tecnologicas-en-la-mira-iran-apunta-a-sus-centros-de-datos.md",
+      "date": "2026-03-15",
+      "author": "FenixAdm",
+      "slug": "grandes-tecnologicas-en-la-mira-iran-apunta-a-sus-centros-de-datos"
+    },
+    {
       "title": "Claudio Spiniak: la red de poder que lo protegió y sepultó la justicia",
       "category": [
         "Política",
