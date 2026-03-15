@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "title": "Claudio Spiniak: la red de poder que lo protegió y sepultó la justicia",
+      "category": [
+        "Política",
+        "Economía",
+        "Nacional"
+      ],
+      "image": "claudio-spiniak-la-red-de-poder-que-lo-protegio-y-sepulto-la-justicia.jpg",
+      "excerpt": "La historia de cómo el poder económico, político y policial operó para entorpecer la justicia, perseguir a los testigos y borrar rastros para otorgarle una pena mínima.",
+      "contentFile": "claudio-spiniak-la-red-de-poder-que-lo-protegio-y-sepulto-la-justicia.md",
+      "date": "2026-03-15",
+      "author": "FenixAdm",
+      "slug": "claudio-spiniak-la-red-de-poder-que-lo-protegio-y-sepulto-la-justicia"
+    },
+    {
       "title": "Polémico traspaso fiscal que recibe el gobierno entrante",
       "category": [
         "Política",
