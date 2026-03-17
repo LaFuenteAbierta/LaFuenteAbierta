@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "title": "La disidencia controlada: cuando la oposición fue diseñada para no cambiar nada",
+      "category": [
+        "Política",
+        "Cultura",
+        "Educación",
+        "Nacional"
+      ],
+      "image": "la-disidencia-controlada-cuando-la-oposicion-fue-disenada-para-no-cambiar-nada.jpg",
+      "excerpt": "La disidencia controlada no elimina la oposición: la administra. El sistema tolera la crítica siempre que no toque lo que realmente importa.",
+      "contentFile": "la-disidencia-controlada-cuando-la-oposicion-fue-disenada-para-no-cambiar-nada.md",
+      "date": "2026-03-17",
+      "author": "FenixAdm",
+      "slug": "la-disidencia-controlada-cuando-la-oposicion-fue-disenada-para-no-cambiar-nada"
+    },
+    {
       "title": "Grandes tecnológicas en la mira: Irán apunta a sus centros de datos",
       "category": [
         "Tecnología",
