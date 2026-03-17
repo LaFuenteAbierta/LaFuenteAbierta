@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "title": "Cuba abre las puertas a las relaciónes comerciales",
+      "category": [
+        "Política",
+        "Economía",
+        "Cultura",
+        "Internacional",
+        "Conflictos"
+      ],
+      "image": "cuba-abre-las-puertas-a-las-relaciones-comerciales.jpg",
+      "excerpt": "Cuba ofrece relación comercial fluida a empresas de EEUU y la diáspora. Lo hace en crisis energética severa, sin petróleo venezolano y con Trump presionando.",
+      "contentFile": "cuba-abre-las-puertas-a-las-relaciones-comerciales.md",
+      "date": "2026-03-17",
+      "author": "FenixAdm",
+      "slug": "cuba-abre-las-puertas-a-las-relaciones-comerciales"
+    },
+    {
       "title": "\"Epstein sigue vivo\": Las últimas palabras de Shoshana Strook antes de morir",
       "category": [
         "Política",
