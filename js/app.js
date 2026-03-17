@@ -32,7 +32,7 @@ const categoryColors = {
 
 function safeTitle(title) {
     return title.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-}W
+}
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', async () => {
@@ -182,7 +182,7 @@ function renderFeaturedPost(post) {
                             ${getViewCount(post.contentFile)} vistas
                         </span>
                     </div>
-                    <a href="#" onclick="openPost('${post.contentFile}', '${post.title}'); return false;" class="inline-flex items-center text-accent-primary font-bold hover:underline group">
+                    <a href="#" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}'; return false;" class="inline-flex items-center text-accent-primary font-bold hover:underline group">
                         Leer más
                         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
