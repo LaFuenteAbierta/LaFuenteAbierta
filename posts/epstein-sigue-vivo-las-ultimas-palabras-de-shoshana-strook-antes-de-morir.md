@@ -1,4 +1,4 @@
-# "Epstein sigue vivo": Las últimas palabras de Shoshana Strook antes de morir
+# Epstein sigue vivo: Las últimas palabras de Shoshana Strook antes de morir
 
 Shoshana Strook supuestamente afirmó que Jeffrey Epstein seguía vivo, que su muerte en 2019 fue un montaje y que habría sido exfiltrado a Israel, donde operaría como activo de inteligencia. Esta fue una de las afirmaciones más graves que hizo públicamente antes de morir — y murió días después de hacerla.
 Shoshana Strook, de 34 años e hija de la ministra israelí de Asentamientos y Misiones Nacionales Orit Strook, fue encontrada muerta en su domicilio en el norte de Israel bajo circunstancias que permanecen sin aclarar. La policía abrió una investigación, aunque las autoridades no han divulgado públicamente detalles sobre la causa de la muerte.
