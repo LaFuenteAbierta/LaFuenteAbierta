@@ -137,7 +137,7 @@
       "slug": "nasa-dart-la-tierra-tiene-escudo-contra-asteroides"
     },
     {
-      "title": "Chileno gana el “Nobel” de la arquitectura",
+      "title": "Chileno gana el \u201cNobel\u201d de la arquitectura",
       "category": [
         "Cultura",
         "Medio Ambiente",
@@ -227,7 +227,9 @@
       "image": "renuncia-en-openai-la-ia-que-impulsaria-a-la-humanidad-es-desviada-hacia-el-control-masivo-y-las-arm.jpg",
       "excerpt": "Renuncia la jefa de robótica de OpenAI por acuerdo con el Pentágono que abre la puerta a la vigilancia masiva y armas autónomas. Anthropic dijo no, OpenAI sí, y hay opacidad. ¿Por qué nadie mira?",
       "contentFile": "renuncia-en-openai-la-ia-que-impulsaria-a-la-humanidad-es-desviada-hacia-el-control-masivo-y-las-arm.md",
-      "date": "2026-03-11"
+      "date": "2026-03-11",
+      "author": "La Fuente Abierta",
+      "slug": "renuncia-en-openai-la-ia-que-impulsaria-a-la-humanidad-es-desviada-hacia-el-control-masivo-y-las-arm"
     }
   ]
 }
