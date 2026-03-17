@@ -28,6 +28,11 @@ const categoryColors = {
     'Redes': 'bg-cyan-600',
     'Programación': 'bg-violet-600'
 };
+// parseador titulo correccion comillas
+
+function safeTitle(title) {
+    return title.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}W
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', async () => {
@@ -156,7 +161,7 @@ function renderFeaturedPost(post) {
                         ${isNew ? '<span class="new-badge text-white px-3 py-1 text-xs font-bold uppercase tracking-wider rounded">NUEVO</span>' : ''}
                         <span class="text-gray-500 text-sm">${getTimeAgo(post.date)}</span>
                     </div>
-                    <h2 class="font-headline text-4xl md:text-5xl mb-4 leading-tight hover:text-accent-primary transition-colors cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
+                    <h2 class="font-headline text-4xl md:text-5xl mb-4 leading-tight hover:text-accent-primary transition-colors cursor-pointer" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}')">
                         ${post.title.toUpperCase()}
                     </h2>
                     <p class="text-gray-400 text-lg mb-6 leading-relaxed">
@@ -203,7 +208,7 @@ function renderNewsGrid(posts) {
         const isNew = isPostNew(post.date);
         return `
             <article class="article-card bg-dark-800 rounded-lg overflow-hidden border border-dark-600 hover:border-accent-primary animate-fade-in stagger-${index + 2}">
-                <div class="overflow-hidden cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
+                <div class="overflow-hidden cursor-pointer" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}')">
                     <img src="${CONFIG.imagesFolder}${post.image}"
                          alt="${post.title}"
                          class="w-full h-48 object-cover"
@@ -218,7 +223,7 @@ function renderNewsGrid(posts) {
                         `).join('')}
                         ${isNew ? '<span class="new-badge text-white px-2 py-1 text-xs font-bold uppercase rounded inline-block">NUEVO</span>' : ''}
                     </div>
-                    <h3 class="font-headline text-2xl mb-3 leading-tight hover:text-accent-primary transition-colors cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
+                    <h3 class="font-headline text-2xl mb-3 leading-tight hover:text-accent-primary transition-colors cursor-pointer" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}')">
                         ${post.title.toUpperCase()}
                     </h3>
                     <p class="text-gray-400 text-sm mb-4">
@@ -245,7 +250,7 @@ function renderSecondaryNews(posts) {
     const container = document.getElementById('secondary-news');
 
     container.innerHTML = posts.slice(0, 3).map(post => `
-        <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-primary cursor-pointer" onclick="openPost('${post.contentFile}', '${post.title}')">
+        <article class="article-card flex gap-4 bg-dark-800 p-4 rounded-lg border border-dark-600 hover:border-accent-primary cursor-pointer" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}')">
             <img src="${CONFIG.imagesFolder}${post.image}"
                  alt="${post.title}"
                  class="w-32 h-24 object-cover rounded flex-shrink-0"
@@ -278,7 +283,7 @@ function renderMostRead() {
     container.innerHTML = `
         <ol class="space-y-5">
             ${mostRead.map((post, index) => `
-                <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors" onclick="openPost('${post.contentFile}', '${post.title}')">
+                <li class="flex gap-4 pb-4 border-b border-dark-600 last:border-0 cursor-pointer hover:bg-dark-700 p-3 -m-3 rounded transition-colors" onclick="openPost('${post.contentFile}', '${safeTitle(post.title)}')">
                     <span class="font-headline text-4xl ${index === 0 ? 'text-accent-primary' : 'text-gray-600'} flex-shrink-0">
                         ${index + 1}
                     </span>
