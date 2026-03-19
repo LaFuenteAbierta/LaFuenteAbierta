@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "title": "Hechos contra narrativa: EE.UU. e Israel enfrentan solos las consecuencias",
+      "category": [
+        "Política",
+        "Economía",
+        "Conflictos"
+      ],
+      "image": "hechos-contra-narrativa-ee-uu-e-israel-enfrentan-solos-las-consecuencias.jpg",
+      "excerpt": "Estados Unidos se queda solo: Joe Kent denuncia mentiras de Israel y su lobby. Ni aliados ni MAGA apoyan su conflicto.",
+      "contentFile": "hechos-contra-narrativa-ee-uu-e-israel-enfrentan-solos-las-consecuencias.md",
+      "date": "2026-03-19",
+      "author": "FenixAdm",
+      "slug": "hechos-contra-narrativa-ee-uu-e-israel-enfrentan-solos-las-consecuencias"
+    },
+    {
       "title": "Cuba abre las puertas a las relaciónes comerciales",
       "category": [
         "Política",
@@ -137,7 +151,7 @@
       "slug": "nasa-dart-la-tierra-tiene-escudo-contra-asteroides"
     },
     {
-      "title": "Chileno gana el \u201cNobel\u201d de la arquitectura",
+      "title": "Chileno gana el “Nobel” de la arquitectura",
       "category": [
         "Cultura",
         "Medio Ambiente",
