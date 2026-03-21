@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "title": "Rompiendo la narrativa: 7 pasos para ver la realidad sin filtros",
+      "category": [
+        "Política",
+        "Cultura",
+        "Internacional",
+        "Opinión",
+        "Educación"
+      ],
+      "image": "rompiendo-la-narrativa-7-pasos-para-ver-la-realidad-sin-filtros.jpg",
+      "excerpt": "Empoderandote para romper el control narrativo: herramientas prácticas para evaluar fuentes, detectar sesgos y entender la concentración de medios en Chile.",
+      "contentFile": "rompiendo-la-narrativa-7-pasos-para-ver-la-realidad-sin-filtros.md",
+      "date": "2026-03-21",
+      "author": "FenixAdm",
+      "slug": "rompiendo-la-narrativa-7-pasos-para-ver-la-realidad-sin-filtros"
+    },
+    {
       "title": "Hechos contra narrativa: EE.UU. e Israel enfrentan solos las consecuencias",
       "category": [
         "Política",
