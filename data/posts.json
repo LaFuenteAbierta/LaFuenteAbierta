@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "title": "ALZA HISTÓRICA DE COMBUSTIBLES EN CHILE: $370 LA BENCINA, $580 EL DIÉSEL",
+      "category": [
+        "Política",
+        "Economía",
+        "Nacional",
+        "Conflictos"
+      ],
+      "image": "alza-historica-de-combustibles-en-chile-370-la-bencina-580-el-diesel.jpg",
+      "excerpt": "Alza histórica de combustibles en Chile: bencina sube $370 y diésel $580 por litro desde el jueves 26 de marzo, por crisis fiscal y alza del petróleo global",
+      "contentFile": "alza-historica-de-combustibles-en-chile-370-la-bencina-580-el-diesel.md",
+      "date": "2026-03-24",
+      "author": "ElArchivista",
+      "slug": "alza-historica-de-combustibles-en-chile-370-la-bencina-580-el-diesel"
+    },
+    {
       "title": "Rompiendo la narrativa: 7 pasos para ver la realidad sin filtros",
       "category": [
         "Política",
